@@ -145,17 +145,6 @@ export type SiteContent = {
     note: string;
     signals: SignalPill[];
   };
-  approach: {
-    eyebrow: string;
-    title: string;
-    paragraphs: string[];
-  };
-  proof: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    metrics: ProofMetric[];
-  };
   cases: {
     eyebrow: string;
     title: string;
@@ -651,43 +640,6 @@ export const siteContent: SiteContent = {
       { value: "35%", label: "faster first response time" },
       { value: "70%", label: "less manual operational load" },
       { value: "112+", label: "indexed support items in one tool" },
-    ],
-  },
-  approach: {
-    eyebrow: "( OPERATING MODEL )",
-    title: "Support credibility comes first. AI and automation matter only if the queue gets calmer.",
-    paragraphs: [
-      "I am most useful when support stops being just ticket handling and starts becoming a pattern problem. If the same pain keeps surfacing across chats, reports, and player complaints, I structure it into something a team can move on.",
-      "Sometimes that becomes an operator-facing workflow. Sometimes it becomes a feedback intelligence pack, escalation slice, or decision memo. The pattern stays the same: reduce the noise, protect trust, and leave the next team with clearer action.",
-      "This portfolio reads wider than a classic support dashboard on purpose. The wider read is real, but the center of gravity stays recruiter-safe: technical support, escalation, workflow automation, and systems leverage.",
-    ],
-  },
-  proof: {
-    eyebrow: "( QUICK PROOF )",
-    title: "Signals that land in recruiter time, not just operator time.",
-    intro:
-      "The flagship cases show depth. These headline metrics make the operating value legible fast.",
-    metrics: [
-      {
-        label: "Tier-1 repeat volume",
-        value: "45% down",
-        note: "AI-assisted workflow and knowledge-base improvements at Mover Bridge.",
-      },
-      {
-        label: "First response time",
-        value: "35% faster",
-        note: "Webhook-based routing, triage, and escalation handling.",
-      },
-      {
-        label: "Manual ops load",
-        value: "70% lower",
-        note: "Compensation workflow redesign for failed transaction handling.",
-      },
-      {
-        label: "Indexed support items",
-        value: "112+",
-        note: "Darkest AFK operator catalog used for faster recovery preparation.",
-      },
     ],
   },
   cases: {

@@ -82,15 +82,33 @@
 .navLink:hover,
 .contactButton:hover,
 .buildLink:hover,
-.contactValue:hover {
+.contactValue:hover,
+.navLink:focus-visible,
+.contactButton:focus-visible,
+.buildLink:focus-visible,
+.contactValue:focus-visible {
   color: var(--ink);
 }
 
 .navLink:hover::after,
 .contactButton:hover::after,
 .buildLink:hover::after,
-.contactValue:hover::after {
+.contactValue:hover::after,
+.navLink:focus-visible::after,
+.contactButton:focus-visible::after,
+.buildLink:focus-visible::after,
+.contactValue:focus-visible::after {
   transform: scaleX(1);
+}
+
+.navLink:focus-visible,
+.contactButton:focus-visible,
+.buildLink:focus-visible,
+.contactValue:focus-visible,
+.profileGithub:focus-visible {
+  outline: 2px solid var(--accent-cool);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
 }
 
 .hero {
@@ -98,11 +116,11 @@
   grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
   gap: clamp(2rem, 4vw, 3.2rem);
   align-items: center;
-  padding-top: clamp(2.75rem, 7vw, 5rem);
+  padding-top: clamp(2rem, 5vw, 3.5rem);
 }
 
 .heroCopy {
-  padding: 1.25rem 0 1.5rem 0.35rem;
+  padding: 0.75rem 0 1rem 0;
 }
 
 .eyebrow,
@@ -318,6 +336,10 @@
   margin-top: var(--section-gap);
 }
 
+.section:first-of-type {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+}
+
 .sectionHeader {
   display: grid;
   grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
@@ -341,13 +363,6 @@
   line-height: 1.65;
 }
 
-.approachGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
-}
-
-.approachParagraph,
 .metricNote,
 .caseSummary,
 .caseOutcome,
@@ -357,17 +372,6 @@
 .contactStatement {
   color: var(--ink-soft);
   line-height: 1.7;
-}
-
-.approachParagraph {
-  padding: 1.45rem 1.25rem 0 0;
-  border-top: 1px solid rgba(22, 23, 26, 0.12);
-}
-
-.proofGrid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
 }
 
 .metricCard,
@@ -419,12 +423,12 @@
 .caseCardSecondary {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 1.25rem;
-  padding: 1.25rem;
-  border: 1px solid rgba(22, 23, 26, 0.08);
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(22, 23, 26, 0.06);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.45);
-  box-shadow: var(--shadow-card);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 12px 36px rgba(103, 84, 62, 0.06);
   transition:
     transform var(--transition-base),
     box-shadow var(--transition-base),
@@ -453,19 +457,20 @@
 
 .caseVisual {
   position: relative;
-  min-height: 22rem;
+  min-height: 18rem;
   overflow: hidden;
-  border: 1px solid rgba(22, 23, 26, 0.08);
-  border-radius: calc(var(--radius-xl) - 0.5rem);
-  background: linear-gradient(180deg, rgba(249, 244, 237, 0.9), rgba(237, 230, 220, 0.7));
+  border: 1px solid rgba(22, 23, 26, 0.06);
+  border-radius: calc(var(--radius-lg) - 0.25rem);
+  background: linear-gradient(180deg, rgba(249, 244, 237, 0.85), rgba(237, 230, 220, 0.6));
 }
 
 .caseImage {
   object-fit: cover;
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--transition-slow);
 }
 
-.caseCard:hover .caseImage {
+.caseCardFeatured:hover .caseImage,
+.caseCardSecondary:hover .caseImage {
   transform: scale(1.04);
 }
 
@@ -488,9 +493,9 @@
 
 .caseTitle {
   max-width: 18ch;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
 }
 
 .caseTitleFeatured {
@@ -694,8 +699,6 @@
     min-height: 38rem;
   }
 
-  .approachGrid,
-  .proofGrid,
   .strengthsGrid,
   .buildsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -763,8 +766,6 @@
     border-radius: 1.25rem;
   }
 
-  .proofGrid,
-  .approachGrid,
   .strengthsGrid,
   .contactGrid,
   .buildsGrid {
@@ -797,8 +798,8 @@
   .contactButton {
     display: inline-flex;
     align-items: center;
-    min-height: 2.5rem;
-    padding: 0.5rem 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.85rem;
     font-size: 0.72rem;
     border-radius: 0.5rem;
     background: rgba(22, 23, 26, 0.03);
@@ -891,8 +892,7 @@
   .metricCard,
   .strengthCard,
   .contactLead,
-  .buildCard,
-  .caseCard {
+  .buildCard {
     padding: 1rem;
   }
 
@@ -955,13 +955,9 @@
 
   .sectionIntro {
     margin-top: 0.65rem;
-    font-size: 0.95rem;
+  font-size: 0.95rem;
   }
-
-  .approachParagraph {
-    padding-right: 0;
-  }
-
+  
   .caseVisual {
     min-height: 13.5rem;
   }
