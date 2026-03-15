@@ -17,6 +17,14 @@ export { CTAButton } from "./cta-button";
 export { FloatingContact } from "./floating-contact";
 export { Card, CardHeader, CardImage, CardBody, CardTags, CardFooter, CardLink } from "./card";
 
+// Cuberto-Style Templates (New)
+export { CursorFollower } from "./cursor-follower";
+export { FloatingContactRing } from "./floating-contact-ring";
+export { TextSplitReveal, TextLineReveal } from "./text-split-reveal";
+export { MediaClipReveal, ImageHoverZoom, VideoReveal } from "./media-clip-reveal";
+export { OutlineCTAButton, OutlineCTALink } from "./outline-cta-button";
+export { InverseSection, SectionDivider, CTAStage } from "./inverse-section";
+
 // Layout & Navigation Components
 export { ThemeProvider, themeScript } from "./theme-provider";
 export { ThemeToggle } from "./theme-toggle";
