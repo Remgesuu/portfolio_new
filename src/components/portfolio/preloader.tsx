@@ -180,7 +180,6 @@ export function Preloader({
             }}
           />
         </motion.div>
-)}
       </motion.div>
     </AnimatePresence>
   );
