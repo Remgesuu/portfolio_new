@@ -196,11 +196,16 @@
 /* ============================================
    Base Styles
    ============================================ */
-html,
-body {
+html {
   max-width: 100vw;
   overflow-x: hidden;
   scroll-behavior: smooth;
+}
+
+body {
+  /* overflow: visible to ensure body doesn't become a scroll container
+     that breaks sticky positioning - sticky needs to attach to html scroll */
+  overflow: visible;
 }
 
 body {
