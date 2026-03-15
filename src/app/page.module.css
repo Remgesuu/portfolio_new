@@ -1,8 +1,10 @@
-/* Page Styles */
+/* Page Styles - Full-screen optimized */
 .page {
-  width: var(--page-width);
+  width: 100%;
+  max-width: var(--page-width);
   margin: 0 auto;
-  padding: 1.5rem 0 3rem;
+  padding: 1.5rem var(--page-padding) 4rem;
+  min-height: 100vh;
 }
 
 /* ============================================
@@ -457,17 +459,19 @@
 }
 
 /* ============================================
-   Cards - Unified surface language
+   Cards - Modern, clean surface language
    ============================================ */
 .metricCard,
 .strengthCard,
 .contactLead,
 .buildCard {
-  padding: 1.35rem;
-  border: 1px solid var(--border-default);
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow-card);
+  background: var(--bg-elevated);
+  box-shadow: 
+    0 1px 3px oklch(50% 0.02 70 / 0.04),
+    0 4px 12px oklch(50% 0.02 70 / 0.03);
   transition:
     transform var(--transition-base),
     border-color var(--transition-base),
@@ -530,9 +534,11 @@
 .caseCardSecondary:hover,
 .buildCard:hover,
 .strengthCard:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-glow);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: oklch(85% 0.02 180 / 0.3);
+  box-shadow: 
+    0 8px 24px oklch(50% 0.02 70 / 0.08),
+    0 2px 8px oklch(50% 0.02 70 / 0.04);
 }
 
 .caseVisualFeatured {
@@ -724,61 +730,81 @@
 }
 
 /* ============================================
-   Contact Section
+   Contact Section - Modern, clean design
    ============================================ */
 .contactSection {
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
 }
 
 .contactGrid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
 }
 
 .contactLead {
   display: grid;
   align-content: start;
-  gap: 1.25rem;
-  background: var(--contact-lead-bg);
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    oklch(96% 0.02 180 / 0.15) 0%,
+    oklch(97% 0.01 85 / 0.1) 100%
+  );
+  border-radius: var(--radius-xl);
+  border: 1px solid oklch(90% 0.02 180 / 0.2);
 }
 
 .contactStatement {
-  max-width: 25rem;
-  font-size: 1.06rem;
+  max-width: 28rem;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--text-primary);
 }
 
 .contactList {
   display: grid;
-  gap: 0.75rem;
+  gap: 0;
   list-style: none;
+  padding: 1.5rem;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
 }
 
 .contactItem {
   display: grid;
-  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
-  gap: 1rem;
-  padding: 0.95rem 0;
-  border-bottom: 1px solid var(--border-default);
+  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.contactItem:last-child {
+  border-bottom: none;
 }
 
 .contactValue {
   color: var(--text-primary);
+  font-weight: 500;
 }
 
 /* ============================================
-   Footer
+   Footer - Clean, minimal
    ============================================ */
 .footer {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1.4rem 0 1rem;
-  border-top: 1px solid var(--border-default);
-  color: var(--text-disabled);
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0 1.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-muted);
   font-family: var(--font-mono), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 

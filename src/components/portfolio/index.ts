@@ -15,6 +15,8 @@ export { AmbientHero } from "./ambient-hero";
 // UI Components
 export { CTAButton } from "./cta-button";
 export { FloatingContact } from "./floating-contact";
+export { FloatingThemeToggle } from "./floating-theme-toggle";
+export { ScrollToTop } from "./scroll-to-top";
 export { Card, CardHeader, CardImage, CardBody, CardTags, CardFooter, CardLink } from "./card";
 
 // Layout & Navigation Components

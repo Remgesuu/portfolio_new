@@ -5,7 +5,8 @@ import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 import { CTAButton } from "@/components/portfolio/cta-button";
-import { FloatingContact } from "@/components/portfolio/floating-contact";
+import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
+import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
 import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabel } from "@/lib/content-utils";
@@ -359,11 +360,9 @@ export default function Home() {
         <p>{meta.location}</p>
       </footer>
 
-      {/* Floating contact widget */}
-      <FloatingContact 
-        email={meta.email}
-        showAfterScroll={600}
-      />
+      {/* Floating UI elements */}
+      <ScrollToTop showAfterScroll={500} />
+      <FloatingThemeToggle />
     </main>
   );
 }
