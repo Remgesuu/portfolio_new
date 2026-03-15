@@ -84,8 +84,8 @@ export function DossierHero({
   // Background color transition
   const bgColor = useTransform(
     progress,
-    BG_TRANSITION.keys,
-    BG_TRANSITION.colors
+    [...BG_TRANSITION.keys],
+    [...BG_TRANSITION.colors]
   );
 
   // Vignette opacity (appears in final 30%)
