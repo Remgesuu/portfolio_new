@@ -14,21 +14,35 @@ interface ScrollContextType {
 // Context for smooth scroll state across the app
 const SmoothScrollContext = createContext<ScrollContextType | null>(null);
 
+// Inner component that safely calls useScroll only on client
+function SmoothScrollInner({ children }: { children: ReactNode }) {
+  const scroll = useScroll();
+  
+  return (
+    <SmoothScrollContext.Provider value={scroll}>
+      {children}
+    </SmoothScrollContext.Provider>
+  );
+}
+
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
-  const scroll = useScroll();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Always render the Provider to maintain consistent tree structure
-  // Only provide scroll value after mounting to avoid SSR/client mismatch
-  return (
-    <SmoothScrollContext.Provider value={isMounted ? scroll : null}>
-      {children}
-    </SmoothScrollContext.Provider>
-  );
+  // Only render the scroll-aware inner component after mounting
+  // This ensures useScroll is never called during SSR
+  if (!isMounted) {
+    return (
+      <SmoothScrollContext.Provider value={null}>
+        {children}
+      </SmoothScrollContext.Provider>
+    );
+  }
+
+  return <SmoothScrollInner>{children}</SmoothScrollInner>;
 }
 
 export function useSmoothScroll() {
