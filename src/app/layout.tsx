@@ -91,7 +91,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
       </head>
-      <body className={`${spaceGrotesk.variable} ${plexMono.variable}`}>
+      <body className={`${spaceGrotesk.variable} ${plexMono.variable}`} suppressHydrationWarning>
         <SkipLink />
         <ThemeProvider>
           <LenisProvider>
