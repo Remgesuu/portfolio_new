@@ -1,13 +1,32 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionTemplate } from "motion/react";
-import { createContext, useContext, type ReactNode } from "react";
+import { motion, useScroll, useTransform, useMotionTemplate, type MotionValue } from "motion/react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+
+// Type for scroll context that handles SSR
+interface ScrollContextType {
+  scrollY: MotionValue<number>;
+  scrollYProgress: MotionValue<number>;
+  scrollX: MotionValue<number>;
+  scrollXProgress: MotionValue<number>;
+}
 
 // Context for smooth scroll state across the app
-const SmoothScrollContext = createContext<ReturnType<typeof useScroll> | null>(null);
+const SmoothScrollContext = createContext<ScrollContextType | null>(null);
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  const [isMounted, setIsMounted] = useState(false);
   const scroll = useScroll();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // During SSR and initial client render, just render children without context
+  // This prevents hydration mismatch from useScroll accessing window
+  if (!isMounted) {
+    return <>{children}</>;
+  }
 
   return (
     <SmoothScrollContext.Provider value={scroll}>
@@ -18,10 +37,9 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
 export function useSmoothScroll() {
   const context = useContext(SmoothScrollContext);
+  // Return null-safe defaults if not mounted yet
   if (!context) {
-    throw new Error(
-      "useSmoothScroll must be used within SmoothScrollProvider"
-    );
+    return null;
   }
   return context;
 }
@@ -41,10 +59,16 @@ export function Parallax({
   scale?: [number, number];
   className?: string;
 }) {
-  const { scrollYProgress } = useSmoothScroll();
+  const scroll = useSmoothScroll();
+  const scrollYProgress = scroll?.scrollYProgress;
   
-  const y = useTransform(scrollYProgress, [0, 1], offset);
-  const scaleVal = useTransform(scrollYProgress, [0, 1], scale);
+  const y = useTransform(scrollYProgress ?? { get: () => 0, set: () => {} } as MotionValue<number>, [0, 1], offset);
+  const scaleVal = useTransform(scrollYProgress ?? { get: () => 0, set: () => {} } as MotionValue<number>, [0, 1], scale);
+
+  // Return static version during SSR
+  if (!scroll) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div style={{ y, scale: scaleVal }} className={className}>
@@ -64,10 +88,20 @@ export function ScrollReveal({
   children: ReactNode;
   className?: string;
 }) {
-  const { scrollYProgress } = useSmoothScroll();
+  const scroll = useSmoothScroll();
+  const scrollYProgress = scroll?.scrollYProgress;
   
   // Map scroll to opacity for smooth fade-in as user scrolls
-  const opacity = useTransform(scrollYProgress, [0, 0.15], [0.3, 1]);
+  const opacity = useTransform(
+    scrollYProgress ?? { get: () => 0, set: () => {} } as MotionValue<number>, 
+    [0, 0.15], 
+    [0.3, 1]
+  );
+
+  // Return static version during SSR
+  if (!scroll) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div style={{ opacity }} className={className}>
@@ -87,10 +121,17 @@ export function ScrollProgress({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const { scrollYProgress } = useSmoothScroll();
+  const scroll = useSmoothScroll();
+  const scrollYProgress = scroll?.scrollYProgress;
   
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const origin = useMotionTemplate`${useTransform(scrollYProgress, [0, 1], [0, 100])}%`;
+  const fallbackValue = { get: () => 0, set: () => {} } as MotionValue<number>;
+  const scaleX = useTransform(scrollYProgress ?? fallbackValue, [0, 1], [0, 1]);
+  const origin = useMotionTemplate`${useTransform(scrollYProgress ?? fallbackValue, [0, 1], [0, 100])}%`;
+
+  // Return nothing during SSR
+  if (!scroll) {
+    return null;
+  }
 
   return (
     <motion.div
