@@ -77,10 +77,9 @@ export function Preloader({
 
   return (
     <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
-      {phase !== "complete" && (
-        <motion.div
-          key="preloader"
-          className="fixed inset-0 z-[9999] flex items-center justify-center"
+      <motion.div
+        key="preloader"
+        className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{ background: "var(--color-night-900)" }}
           initial={{ opacity: 1 }}
           exit={{ 
@@ -181,7 +180,8 @@ export function Preloader({
             }}
           />
         </motion.div>
-      )}
+)}
+      </motion.div>
     </AnimatePresence>
   );
 }
