@@ -4,6 +4,9 @@ import Link from "next/link";
 import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
+import { CTAButton } from "@/components/portfolio/cta-button";
+import { FloatingContact } from "@/components/portfolio/floating-contact";
+import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabel } from "@/lib/content-utils";
 import { isInternalRouteHref, getExternalLinkProps } from "@/lib/url-utils";
@@ -78,30 +81,27 @@ export default function Home() {
             <div className={styles.heroActions}>
               {hero.ctas.map((cta) =>
                 isInternalRouteHref(cta.href) ? (
-                  <Link
+                  <CTAButton
                     key={cta.label}
-                    className={
-                      cta.variant === "primary"
-                        ? styles.primaryAction
-                        : styles.secondaryAction
-                    }
+                    as="a"
                     href={cta.href}
+                    variant={cta.variant === "primary" ? "primary" : "ghost"}
+                    size="lg"
                   >
                     {cta.label}
-                  </Link>
+                  </CTAButton>
                 ) : (
-                  <a
+                  <CTAButton
                     key={cta.label}
-                    className={
-                      cta.variant === "primary"
-                        ? styles.primaryAction
-                        : styles.secondaryAction
-                    }
+                    as="a"
                     href={cta.href}
-                    {...getExternalLinkProps(cta.href)}
+                    variant={cta.variant === "primary" ? "primary" : "ghost"}
+                    size="lg"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {cta.label}
-                  </a>
+                  </CTAButton>
                 ),
               )}
             </div>
@@ -357,6 +357,12 @@ export default function Home() {
         <p>{footer}</p>
         <p>{meta.location}</p>
       </footer>
+
+      {/* Floating contact widget */}
+      <FloatingContact 
+        email={meta.email}
+        showAfterScroll={600}
+      />
     </main>
   );
 }

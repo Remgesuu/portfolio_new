@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/portfolio/breadcrumbs";
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
+import { CTAButton } from "@/components/portfolio/cta-button";
+import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import {
   getAdjacentCaseStudies,
   getCaseStudy,
