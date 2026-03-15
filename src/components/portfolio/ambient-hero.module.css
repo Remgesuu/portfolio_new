@@ -3,22 +3,24 @@
   min-height: 34rem;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid var(--border-default);
-  background: var(--ambient-frame-bg);
+  border: 1px solid oklch(92% 0.008 85 / 0.6);
+  background: 
+    radial-gradient(ellipse 80% 60% at 30% 30%, oklch(95% 0.03 180 / 0.15), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 70% 60%, oklch(93% 0.035 55 / 0.12), transparent 45%),
+    linear-gradient(165deg, oklch(98% 0.006 85) 0%, oklch(96% 0.012 75) 100%);
   box-shadow:
-    inset 0 1px 0 var(--ambient-inset-glow),
-    var(--shadow-lg);
+    inset 0 1px 0 oklch(100% 0 0 / 0.8),
+    0 8px 32px oklch(50% 0.02 70 / 0.08),
+    0 2px 8px oklch(50% 0.02 70 / 0.04);
 }
 
 .grid {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(var(--ambient-grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--ambient-grid-color) 1px, transparent 1px);
-  background-size: 2.6rem 2.6rem;
-  mask-image: radial-gradient(circle at center, black 30%, transparent 82%);
-  opacity: 0.45;
+  background-image: radial-gradient(circle at center, oklch(70% 0.01 85 / 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, black 20%, transparent 70%);
+  opacity: 0.6;
 }
 
 .orb {
@@ -26,33 +28,48 @@
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  filter: blur(8px);
+  filter: blur(40px);
   will-change: transform;
 }
 
 .core {
-  width: min(31vw, 26rem);
+  width: min(28vw, 22rem);
   aspect-ratio: 1;
-  background: var(--ambient-orb-core);
-  opacity: 0.92;
-  box-shadow: var(--ambient-core-shadow);
+  background: radial-gradient(
+    circle at 40% 40%,
+    oklch(92% 0.06 180 / 0.6),
+    oklch(88% 0.04 170 / 0.3) 50%,
+    transparent 70%
+  );
+  opacity: 0.85;
 }
 
 .secondary {
-  width: min(26vw, 21rem);
+  width: min(24vw, 18rem);
   aspect-ratio: 1;
-  margin-left: 6rem;
-  margin-top: 4rem;
-  background: var(--ambient-orb-secondary);
-  opacity: 0.75;
+  margin-left: 5rem;
+  margin-top: 3rem;
+  background: radial-gradient(
+    circle at 50% 50%,
+    oklch(90% 0.05 55 / 0.5),
+    oklch(88% 0.03 60 / 0.2) 50%,
+    transparent 70%
+  );
+  opacity: 0.7;
 }
 
 .highlight {
-  width: min(16vw, 11rem);
+  width: min(14vw, 9rem);
   aspect-ratio: 1;
-  margin-left: -10rem;
-  margin-top: -8rem;
-  background: var(--ambient-orb-highlight);
+  margin-left: -8rem;
+  margin-top: -6rem;
+  background: radial-gradient(
+    circle,
+    oklch(98% 0.01 85 / 0.9),
+    oklch(96% 0.005 85 / 0.3) 50%,
+    transparent 70%
+  );
+  filter: blur(24px);
 }
 
 .ring,
@@ -61,35 +78,48 @@
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1px solid var(--ambient-ring-color);
+  border: 1px solid oklch(80% 0.02 180 / 0.15);
 }
 
 .ring {
-  width: min(36vw, 29rem);
+  width: min(32vw, 26rem);
   aspect-ratio: 1;
 }
 
 .ringMinor {
-  width: min(43vw, 34rem);
+  width: min(40vw, 32rem);
   aspect-ratio: 1;
   border-style: dashed;
-  opacity: 0.45;
+  border-color: oklch(75% 0.015 70 / 0.1);
+  opacity: 0.5;
 }
 
 .haze {
   position: absolute;
   inset: auto 0 0;
-  height: 8rem;
-  background: linear-gradient(180deg, transparent, var(--ambient-haze-color));
+  height: 10rem;
+  background: linear-gradient(
+    180deg, 
+    transparent 0%,
+    oklch(97% 0.008 80 / 0.4) 40%,
+    oklch(97% 0.01 80 / 0.85) 100%
+  );
 }
 
 .shimmer {
   position: absolute;
   top: 30%;
   left: 0;
-  width: 40%;
-  height: 2px;
-  background: var(--ambient-shimmer-color);
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(95% 0.03 180 / 0.4) 30%,
+    oklch(98% 0.01 85 / 0.6) 50%,
+    oklch(95% 0.03 55 / 0.4) 70%,
+    transparent 100%
+  );
   pointer-events: none;
   will-change: transform, opacity;
 }
