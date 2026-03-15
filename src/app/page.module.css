@@ -1,5 +1,7 @@
 /* Page Styles - Full-screen optimized */
 .page {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: var(--page-width);
   margin: 0 auto;
@@ -164,7 +166,7 @@
   height: 140%;
   background: radial-gradient(
     ellipse 100% 100% at 30% 40%,
-    oklch(94% 0.035 180 / 0.12),
+    var(--gradient-ambient-primary),
     transparent 60%
   );
   pointer-events: none;

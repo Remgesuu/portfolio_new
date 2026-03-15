@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
+import { DossierHero } from "@/components/portfolio/dossier-hero";
 import { CTAButton } from "@/components/portfolio/cta-button";
+import { AdaptiveTopbar } from "@/components/portfolio/adaptive-topbar";
 import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
 import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
-import { Typewriter } from "@/components/portfolio/typewriter";
+
 import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabel } from "@/lib/content-utils";
@@ -17,8 +18,6 @@ import styles from "./page.module.css";
 export default function Home() {
   const {
     meta,
-    profileMedia,
-    hero,
     nav,
     cases,
     builds,
@@ -28,145 +27,17 @@ export default function Home() {
   } = siteContent;
 
   return (
-    <main id="main-content" tabIndex={-1} className={styles.page}>
-      {/* Minimal floating nav pill - kons.fyi style */}
-      <Reveal variant="fade" duration={0.6}>
-        <header className={styles.topbar}>
-          <Link className={styles.homeButton} href="/" aria-label="Home">
-            <span className={styles.homeIcon}>G</span>
-          </Link>
+    <>
+      {/* Adaptive Topbar - collapses during hero scroll */}
+      <AdaptiveTopbar nav={nav} />
 
-          <nav className={styles.navPill} aria-label="Primary">
-            {nav.map((item) =>
-              isInternalRouteHref(item.href) ? (
-                <Link key={item.href} className={styles.navLink} href={item.href}>
-                  {item.label}
-                </Link>
-              ) : (
-                <a key={item.href} className={styles.navLink} href={item.href}>
-                  {item.label}
-                </a>
-              ),
-            )}
-          </nav>
-        </header>
-      </Reveal>
+      {/* Dossier Hero - full-bleed outside page container */}
+      <DossierHero 
+        resumeHref="/resume" 
+        contactHref="#contact" 
+      />
 
-      {/* Hero section with choreographed entrance */}
-      <section className={styles.hero}>
-        <div className={styles.heroCopy}>
-          <Reveal variant="fade" delay={0.1} duration={0.7}>
-            <p className={styles.eyebrow}>
-              <Typewriter
-                phrases={[
-                  "Support Operations",
-                  "AI Automation",
-                  "Workflow Systems",
-                  "Remote-Ready",
-                ]}
-                typingSpeed={70}
-                deletingSpeed={40}
-                pauseDuration={2500}
-              />
-            </p>
-          </Reveal>
-
-          <Reveal variant="fade" delay={0.15} duration={0.7}>
-            <p className={styles.heroPositioning}>{hero.positioning}</p>
-          </Reveal>
-
-          <Reveal variant="blur-to-crisp" delay={0.2} duration={1}>
-            <h1 className={styles.heroTitle}>{hero.title}</h1>
-          </Reveal>
-
-          <Reveal variant="fade-up" delay={0.35} duration={0.8}>
-            <p className={styles.heroDescription}>{hero.description}</p>
-          </Reveal>
-
-          <Reveal variant="fade-up" delay={0.45} duration={0.7}>
-            <div className={styles.heroActions}>
-              {hero.ctas.map((cta) =>
-                isInternalRouteHref(cta.href) ? (
-                  <CTAButton
-                    key={cta.label}
-                    as="a"
-                    href={cta.href}
-                    variant={cta.variant === "primary" ? "primary" : "ghost"}
-                    size="lg"
-                  >
-                    {cta.label}
-                  </CTAButton>
-                ) : (
-                  <CTAButton
-                    key={cta.label}
-                    as="a"
-                    href={cta.href}
-                    variant={cta.variant === "primary" ? "primary" : "ghost"}
-                    size="lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {cta.label}
-                  </CTAButton>
-                ),
-              )}
-            </div>
-          </Reveal>
-
-          <Reveal variant="fade-up" delay={0.55} duration={0.6}>
-            <a className={styles.heroEmail} href={`mailto:${meta.email}`}>
-              {meta.email}
-            </a>
-          </Reveal>
-        </div>
-
-        <Reveal className={styles.heroVisual} variant="scale-in" delay={0.25} duration={1}>
-          <div className={styles.profileStage}>
-            <div className={styles.profileBackdrop} aria-hidden="true">
-              <AmbientHero />
-            </div>
-
-            <div className={styles.profilePhotoFrame}>
-              <Image
-                src={profileMedia.src}
-                alt={profileMedia.alt}
-                width={profileMedia.width}
-                height={profileMedia.height}
-                priority
-                sizes="(max-width: 720px) 100vw, (max-width: 1040px) 72vw, 34rem"
-                className={styles.profilePhoto}
-              />
-            </div>
-
-            <article className={styles.profilePanel}>
-              <div className={styles.profilePanelLead}>
-                <p className={styles.profileLabel}>Recruiter read</p>
-                <p className={styles.profileText}>{hero.positioning}</p>
-                <p className={styles.profileAvailability}>{hero.availability}</p>
-                <a 
-                  className={styles.profileGithub} 
-                  href={meta.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  github.com/CodeAvd
-                </a>
-              </div>
-
-              <div className={styles.heroSignals}>
-                {hero.signals.map((signal) => (
-                  <div key={signal.label} className={styles.signalCard}>
-                    <p className={styles.signalValue}>{signal.value}</p>
-                    <p className={styles.signalLabel}>{signal.label}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </div>
-
-          <p className={styles.heroNote}>{hero.note}</p>
-        </Reveal>
-      </section>
+      <main id="main-content" tabIndex={-1} className={styles.page}>
 
       {/* Cases section with staggered cards */}
       <Reveal className={styles.section} id="cases" delay={0.06}>
@@ -370,10 +241,11 @@ export default function Home() {
         <p>{footer}</p>
         <p>{meta.location}</p>
       </footer>
+      </main>
 
       {/* Floating UI elements */}
       <ScrollToTop showAfterScroll={500} />
       <FloatingThemeToggle />
-    </main>
+    </>
   );
 }

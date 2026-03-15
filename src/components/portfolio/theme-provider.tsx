@@ -23,10 +23,11 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const STORAGE_KEY = "theme-preference";
 
 function getSystemTheme(): ResolvedTheme {
-  if (typeof window === "undefined") return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  if (typeof window === "undefined") return "dark";
+  // Default to dark for cinematic experience, respect user preference
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
 }
 
 function getStoredTheme(): Theme {
@@ -104,13 +105,16 @@ export function useTheme() {
 
 // Anti-flash script to be injected inline in <head>
 // This runs before React hydration to prevent theme flash
+// Default: dark theme for cinematic experience
 export const themeScript = `
 (function() {
   try {
     var stored = localStorage.getItem('theme-preference');
     var theme = (stored === 'light' || stored === 'dark') ? stored : 
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
     document.documentElement.setAttribute('data-theme', theme);
-  } catch (e) {}
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 })();
 `;
