@@ -66,10 +66,9 @@ export function DossierHero({
   resumeHref = "/resume", 
   contactHref = "#contact" 
 }: DossierHeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  const [isMounted, setIsMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
@@ -78,15 +77,12 @@ export function DossierHero({
 
   const { hero } = siteContent;
 
-  // Mount check for SSR
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Scroll progress for the pinned section - only after mount
+  // Scroll progress for the pinned section
+  // Using container option to track scroll within the section
   const { scrollYProgress } = useScroll({
-    target: isMounted ? containerRef : undefined,
+    target: containerRef,
     offset: ["start start", "end end"],
+    layoutEffect: false, // Prevents SSR mismatch
   });
 
   // Smooth spring for video scrubbing
@@ -230,12 +226,11 @@ export function DossierHero({
   return (
     <section 
       ref={containerRef}
+      className="relative"
       style={{ 
-        position: "relative",
         height: "500vh",
         width: "100%",
         zIndex: 10,
-        // Initial background to prevent flash during hydration
         backgroundColor: INITIAL_BG,
       }}
       data-scroll-sequence
