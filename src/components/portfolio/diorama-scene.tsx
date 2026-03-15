@@ -11,8 +11,14 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-// Global scroll state for R3F (avoids React context issues with Canvas)
-const scrollState = { progress: 0, velocity: 0 };
+// Shared state for R3F components (avoids React context issues with Canvas)
+// Updated by parent via props, read by useFrame hooks
+const sceneState = { 
+  progress: 0, 
+  velocity: 0,
+  pointer: { x: 0, y: 0 },
+  stageIndex: 0,
+};
 
 // Soft pastel palette matching the vision
 const COLORS = {
@@ -33,23 +39,28 @@ const COLORS = {
 function DossierArtifact() {
   const groupRef = useRef<THREE.Group>(null);
   
-  // Smooth scroll-linked rotation
+  // Smooth scroll-linked rotation with pointer parallax
   useFrame((_, delta) => {
     if (groupRef.current) {
-      // Base rotation from scroll (reads from global state)
-      const targetRotationY = scrollState.progress * Math.PI * 2;
-      const targetRotationX = Math.sin(scrollState.progress * Math.PI) * 0.15;
+      // Base rotation from scroll
+      const targetRotationY = sceneState.progress * Math.PI * 0.3; // Reduced rotation
+      const targetRotationX = Math.sin(sceneState.progress * Math.PI) * 0.08;
+      
+      // Add pointer parallax
+      const pointerInfluence = 0.15;
+      const finalRotationY = targetRotationY + sceneState.pointer.x * pointerInfluence;
+      const finalRotationX = targetRotationX - sceneState.pointer.y * pointerInfluence * 0.5;
       
       // Smooth interpolation
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
-        targetRotationY,
-        delta * 2
+        finalRotationY,
+        delta * 2.5
       );
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
-        targetRotationX,
-        delta * 2
+        finalRotationX,
+        delta * 2.5
       );
     }
   });
@@ -287,10 +298,17 @@ function FloatingParticles() {
 function SceneSetup() {
   const { camera } = useThree();
   
-  // Subtle camera movement based on scroll
+  // Subtle camera movement based on scroll and pointer
   useFrame(() => {
-    const targetZ = 5 - scrollState.progress * 0.5;
+    // Dolly based on progress
+    const targetZ = 5 - sceneState.progress * 0.8;
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.02);
+    
+    // Subtle pan based on pointer
+    const targetX = sceneState.pointer.x * 0.3;
+    const targetY = sceneState.pointer.y * 0.2 + 2;
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX, 0.02);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.02);
   });
 
   return (
@@ -327,28 +345,36 @@ function SceneSetup() {
 
 /**
  * Main diorama canvas component
+ * Receives progress/pointer from parent - does NOT read scroll directly
  */
 interface DioramaSceneProps {
+  progress?: number;
+  velocity?: number;
+  pointer?: { x: number; y: number };
+  stageIndex?: number;
   className?: string;
 }
 
-export function DioramaScene({ className }: DioramaSceneProps) {
+export function DioramaScene({ 
+  progress = 0,
+  velocity = 0,
+  pointer = { x: 0, y: 0 },
+  stageIndex = 0,
+  className,
+}: DioramaSceneProps) {
   const [isMounted, setIsMounted] = useState(false);
   
-  // Setup scroll listener on mount
+  // Sync props to shared state for R3F hooks
+  useEffect(() => {
+    sceneState.progress = progress;
+    sceneState.velocity = velocity;
+    sceneState.pointer = pointer;
+    sceneState.stageIndex = stageIndex;
+  }, [progress, velocity, pointer, stageIndex]);
+  
+  // Mount check
   useEffect(() => {
     setIsMounted(true);
-    
-    const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
-      scrollState.progress = progress;
-    };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial value
-    
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (!isMounted) return null;

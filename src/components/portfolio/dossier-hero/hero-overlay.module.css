@@ -1,0 +1,278 @@
+/* Hero Overlay - Text layers with parallax */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Three-column grid */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 2fr minmax(200px, 1fr);
+  gap: 2rem;
+  height: 100%;
+  padding: clamp(4rem, 8vh, 6rem) clamp(1.5rem, 4vw, 3rem);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Left copy area */
+.leftCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 420px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+  transform-origin: left center;
+}
+
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  transform-origin: left center;
+  text-wrap: balance;
+}
+
+.description {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  max-width: 320px;
+  transform-origin: left center;
+}
+
+.ctaRow {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  pointer-events: auto;
+}
+
+.scrollHint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  margin-top: 2rem;
+  opacity: 0.6;
+}
+
+.scrollIcon {
+  display: inline-block;
+  width: 1rem;
+  height: 1.5rem;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  position: relative;
+}
+
+.scrollDot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.25rem;
+  height: 0.25rem;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+/* Center spacer - keeps book area clear */
+.centerSpacer {
+  /* Empty space for book */
+}
+
+/* Right rail area */
+.rightRail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: right;
+  padding: 1rem 0;
+}
+
+/* Stage content area (top right) */
+.stageArea {
+  min-height: 80px;
+}
+
+.stageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  align-items: flex-end;
+}
+
+.stageLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  transform-origin: right center;
+}
+
+.stageThought {
+  font-size: 0.875rem;
+  font-style: italic;
+  max-width: 200px;
+  line-height: 1.4;
+  transform-origin: right center;
+}
+
+/* Progress rail (right side) */
+.progressRail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: auto 0;
+}
+
+.progressTick {
+  width: 24px;
+  height: 3px;
+  background: rgba(196, 165, 116, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.progressTick[data-active="true"] {
+  width: 32px;
+}
+
+.progressBar {
+  display: block;
+  height: 100%;
+  background: #c4a574;
+  border-radius: 2px;
+  transition: width 0.15s ease-out;
+}
+
+/* Evidence area (bottom right) */
+.evidenceArea {
+  transform-origin: right bottom;
+}
+
+.evidenceLabel {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  color: #c4a574;
+  margin-bottom: 0.75rem;
+}
+
+.evidenceGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.evidenceItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.evidenceValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f8f6f3;
+}
+
+.evidenceDesc {
+  font-size: 0.6875rem;
+  color: #9a958d;
+  max-width: 180px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1279px) {
+  .grid {
+    grid-template-columns: minmax(240px, 1fr) 1.5fr minmax(160px, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .title {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  
+  .leftCopy {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  .centerSpacer {
+    display: none;
+  }
+  
+  .rightRail {
+    grid-column: 2;
+    grid-row: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 1.25rem;
+  }
+  
+  .leftCopy {
+    order: 1;
+    max-width: none;
+  }
+  
+  .rightRail {
+    order: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 2rem;
+  }
+  
+  .stageArea {
+    min-height: auto;
+  }
+  
+  .stageContent {
+    align-items: flex-start;
+  }
+  
+  .progressRail {
+    flex-direction: row;
+    margin: 0;
+  }
+  
+  .progressTick {
+    width: 20px;
+    height: 2px;
+  }
+  
+  .progressTick[data-active="true"] {
+    width: 28px;
+  }
+  
+  .evidenceArea {
+    display: none; /* Show evidence in different section on mobile */
+  }
+}

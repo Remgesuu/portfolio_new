@@ -1,0 +1,179 @@
+/* Dossier Hero - Layer Structure */
+
+.scrollTrack {
+  position: relative;
+  height: 500vh; /* 5x viewport for scroll range */
+  width: 100%;
+  z-index: 10;
+}
+
+.stickyWindow {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate; /* Creates stacking context */
+}
+
+/* Layer structure - all absolute positioned */
+.bgLayer,
+.bookLayer,
+.overlayLayer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Background layer - DioramaScene or gradient */
+.bgLayer {
+  z-index: 0;
+}
+
+/* Book layer - centered video/canvas */
+.bookLayer {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+/* Overlay layer - text and CTA */
+.overlayLayer {
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Allow pointer events on CTA buttons */
+.overlayLayer [data-cta-area="true"] {
+  pointer-events: auto;
+}
+
+/* Vignette effect for dark transition */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Corner marks - editorial crop marks */
+.cornerMarks {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.cornerMark {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+
+.cornerMark::before,
+.cornerMark::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.cornerMark::before {
+  width: 1px;
+  height: 12px;
+}
+
+.cornerMark::after {
+  width: 12px;
+  height: 1px;
+}
+
+/* Top-left */
+.cornerMark:nth-child(1) {
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
+.cornerMark:nth-child(1)::before {
+  top: 0;
+  left: 0;
+}
+
+.cornerMark:nth-child(1)::after {
+  top: 0;
+  left: 0;
+}
+
+/* Top-right */
+.cornerMark:nth-child(2) {
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.cornerMark:nth-child(2)::before {
+  top: 0;
+  right: 0;
+}
+
+.cornerMark:nth-child(2)::after {
+  top: 0;
+  right: 0;
+}
+
+/* Bottom-left */
+.cornerMark:nth-child(3) {
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.cornerMark:nth-child(3)::before {
+  bottom: 0;
+  left: 0;
+}
+
+.cornerMark:nth-child(3)::after {
+  bottom: 0;
+  left: 0;
+}
+
+/* Bottom-right */
+.cornerMark:nth-child(4) {
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+
+.cornerMark:nth-child(4)::before {
+  bottom: 0;
+  right: 0;
+}
+
+.cornerMark:nth-child(4)::after {
+  bottom: 0;
+  right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+  .cornerMark {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .cornerMark::before {
+    height: 8px;
+  }
+  
+  .cornerMark::after {
+    width: 8px;
+  }
+}
+
+@media (max-width: 767px) {
+  .scrollTrack {
+    height: 300vh; /* Reduced scroll range on mobile */
+  }
+  
+  .cornerMarks {
+    display: none; /* Hide corner marks on mobile */
+  }
+}

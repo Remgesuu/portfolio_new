@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/portfolio/reveal";
 import { DossierHero } from "@/components/portfolio/dossier-hero";
 import { CTAButton } from "@/components/portfolio/cta-button";
+import { AdaptiveTopbar } from "@/components/portfolio/adaptive-topbar";
 import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
 import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
 
@@ -26,35 +27,17 @@ export default function Home() {
   } = siteContent;
 
   return (
-    <main id="main-content" tabIndex={-1} className={styles.page}>
-      {/* Minimal floating nav pill - kons.fyi style */}
-      <Reveal variant="fade" duration={0.6}>
-        <header className={styles.topbar}>
-          <Link className={styles.homeButton} href="/" aria-label="Home">
-            <span className={styles.homeIcon}>G</span>
-          </Link>
+    <>
+      {/* Adaptive Topbar - collapses during hero scroll */}
+      <AdaptiveTopbar nav={nav} />
 
-          <nav className={styles.navPill} aria-label="Primary">
-            {nav.map((item) =>
-              isInternalRouteHref(item.href) ? (
-                <Link key={item.href} className={styles.navLink} href={item.href}>
-                  {item.label}
-                </Link>
-              ) : (
-                <a key={item.href} className={styles.navLink} href={item.href}>
-                  {item.label}
-                </a>
-              ),
-            )}
-          </nav>
-        </header>
-      </Reveal>
-
-      {/* Dossier Hero - scroll-driven video sequence */}
+      {/* Dossier Hero - full-bleed outside page container */}
       <DossierHero 
         resumeHref="/resume" 
         contactHref="#contact" 
       />
+
+      <main id="main-content" tabIndex={-1} className={styles.page}>
 
       {/* Cases section with staggered cards */}
       <Reveal className={styles.section} id="cases" delay={0.06}>
@@ -258,10 +241,11 @@ export default function Home() {
         <p>{footer}</p>
         <p>{meta.location}</p>
       </footer>
+      </main>
 
       {/* Floating UI elements */}
       <ScrollToTop showAfterScroll={500} />
       <FloatingThemeToggle />
-    </main>
+    </>
   );
 }
