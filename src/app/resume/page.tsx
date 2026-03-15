@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { BrandLockup } from "@/components/portfolio/brand-lockup";
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 import { siteContent } from "@/content/site-content";
@@ -39,12 +38,9 @@ export default function ResumePage() {
       {/* Utility bar with theme toggle */}
       <Reveal variant="fade" duration={0.6}>
         <div className={styles.utilityBar}>
-          <div className={styles.utilityLead}>
-            <BrandLockup compact href="/" />
-            <Link className={styles.utilityLink} href="/">
-              Back to portfolio
-            </Link>
-          </div>
+          <Link className={styles.utilityLink} href="/">
+            Back to portfolio
+          </Link>
           <div className={styles.utilityActions}>
             <ThemeToggle />
             <p className={styles.utilityNote}>Print or save as PDF from browser.</p>

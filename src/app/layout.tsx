@@ -1,20 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Newsreader, Public_Sans } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 
 import { SkipLink } from "@/components/portfolio/skip-link";
 import { ThemeProvider, themeScript } from "@/components/portfolio/theme-provider";
-import { brandIdentity } from "@/content/brand";
 import { siteContent } from "@/content/site-content";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 import "./globals.css";
 
-const newsreader = Newsreader({
-  variable: "--font-display",
-  subsets: ["latin"],
-});
-
-const publicSans = Public_Sans({
+const instrumentSans = Instrument_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -27,8 +21,8 @@ const plexMono = IBM_Plex_Mono({
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f3ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#181c20" },
+    { media: "(prefers-color-scheme: light)", color: "#f9f4ed" },
+    { media: "(prefers-color-scheme: dark)", color: "#11161b" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -36,7 +30,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  applicationName: `${siteContent.meta.name} | ${brandIdentity.concept}`,
+  applicationName: "Grigorii Portfolio",
   title: {
     default: "Grigorii | AI-Enabled Support Systems Operator",
     template: "%s | Grigorii",
@@ -84,9 +78,14 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Preconnect to Google Fonts for faster font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script
+          dangerouslySetInnerHTML={{ __html: themeScript }}
+        />
       </head>
-      <body className={`${newsreader.variable} ${publicSans.variable} ${plexMono.variable}`}>
+      <body className={`${instrumentSans.variable} ${plexMono.variable}`}>
         <SkipLink />
         <ThemeProvider>{children}</ThemeProvider>
       </body>

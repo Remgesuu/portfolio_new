@@ -555,7 +555,7 @@ const resumeProjects: ResumeProject[] = [
 
 const resumeContent: ResumeContent = {
   headline:
-    "Support operations / technical support specialist with AI-assisted workflow design.",
+    "Support Operations / Technical Support Specialist with AI automation and workflow systems leverage.",
   summary:
     "Support operations and technical support specialist with 3.5+ years across Web3, FinTech, gamedev, and customer-facing operations. Reduced repetitive tier-1 volume by 45%, improved first response time by 35%, and cut manual operational load by 70% through automation, routing, and internal tooling. Strong in escalation management, incident communication, knowledge base improvement, feedback intelligence, and turning repeated support pain into calmer systems.",
   contactNote:
@@ -569,7 +569,7 @@ const resumeContent: ResumeContent = {
     },
     {
       label: "Portfolio",
-      value: "signal-ledger portfolio",
+      value: "portfolio-v2",
       href: "/",
     },
     {
@@ -601,7 +601,7 @@ export const siteContent: SiteContent = {
     email: "grigorii584@gmail.com",
     phone: "+7-988-492-9938",
     githubUrl: "https://github.com/CodeAvd",
-    portfolioRepoUrl: "https://github.com/pamelavilams-lgtm/portfolio_true",
+    portfolioRepoUrl: "https://github.com/CodeAvd/portfolio_v2",
     legacyPortfolioUrl: "https://codeavd.github.io/Portfolio/",
     resumeUrl: "/resume",
   },
@@ -614,19 +614,19 @@ export const siteContent: SiteContent = {
   description:
     "English-first portfolio and resume for an AI-enabled support systems operator working across technical support, escalation, workflow automation, and product-facing signal packaging.",
   nav: [
-    { label: "Cases", href: "#cases" },
+    { label: "Work", href: "#cases" },
     { label: "Systems", href: "#builds" },
     { label: "Fit", href: "#strengths" },
     { label: "Resume", href: "/resume" },
     { label: "Contact", href: "#contact" },
   ],
   hero: {
-    eyebrow: "( SIGNAL LEDGER / SUPPORT OPS )",
-    title: "Support systems that turn repeat noise into evidence.",
+    eyebrow: "( SUPPORT-FIRST, SYSTEMS-SHAPED )",
+    title: "Support systems that scale.",
     description:
-      "I turn recurring tickets, escalations, and user feedback into tooling, triage views, and decision artifacts that support, QA, and product teams can reuse.",
+      "Support-first by training, systems-first in execution. I reduce repeated ticket noise, build operator tooling, and package customer signals into artifacts product, QA, and ops teams can actually use.",
     positioning:
-      "Support operations / technical support specialist with AI-assisted workflow design and escalation discipline. Remote-ready.",
+      "Support Operations / Technical Support Specialist with AI automation and workflow systems leverage. Remote-ready.",
     ctas: [
       { label: "View case studies", href: "#cases", variant: "primary" },
       { label: "Open resume", href: "/resume", variant: "secondary" },
@@ -634,7 +634,7 @@ export const siteContent: SiteContent = {
     availability:
       "Remote-first and interview-ready for support ops, technical support, incident-heavy support, and AI-adjacent operations roles.",
     note:
-      "Public-safe evidence only. The site keeps shipped interfaces, proof metrics, and operator thinking visible without exposing internal-only workflow detail.",
+      "Public-safe packaging only. The site keeps shipped interfaces, operating logic, and proof metrics while leaving out internal-only workflow detail.",
     signals: [
       { value: "45%", label: "lower repetitive tier-1 volume" },
       { value: "35%", label: "faster first response time" },
@@ -644,20 +644,20 @@ export const siteContent: SiteContent = {
   },
   cases: {
     eyebrow: "( FLAGSHIP CASES )",
-    title: "Case studies where support work becomes an operating artifact.",
+    title: "Three public-safe case studies where support work turns into clearer systems.",
     intro:
       "Workflow design, feedback intelligence, and product-facing packaging drawn from support-adjacent work and confidentiality-safe examples.",
   },
   builds: {
     eyebrow: "( SELECTED TECHNICAL WORK )",
-    title: "Shipped systems that prove the builder layer behind the operator story.",
+    title: "Additional shipped systems that widen the read beyond a support dashboard.",
     intro:
       "Real builder proof from personal and public-safe work. These are not filler projects; they show the technical stack behind the operating claims.",
     items: technicalProofs,
   },
   strengths: {
     eyebrow: "( ROLE FIT )",
-    title: "Evidence for the roles this portfolio is built to win.",
+    title: "The positioning is broader now, but the evidence stays disciplined.",
     intro:
       "Support-first credibility remains the foundation. The wider operator read comes from shipped systems and better packaging, not from inflated titles.",
     items: [
@@ -683,7 +683,7 @@ export const siteContent: SiteContent = {
   },
   contact: {
     eyebrow: "( CONTACT )",
-    title: "If you need support credibility with cleaner systems leverage, we should talk.",
+    title: "If you need support credibility with stronger systems leverage, we should talk.",
     intro:
       "Open to remote-first roles across support ops, technical support, escalation-heavy support, AI-enabled internal tooling, and product-facing operations.",
     links: [
@@ -704,8 +704,8 @@ export const siteContent: SiteContent = {
       },
       {
         label: "Portfolio source",
-        value: "github.com/pamelavilams-lgtm/portfolio_true",
-        href: "https://github.com/pamelavilams-lgtm/portfolio_true",
+        value: "github.com/CodeAvd/portfolio_v2",
+        href: "https://github.com/CodeAvd/portfolio_v2",
       },
       {
         label: "Location",
@@ -714,7 +714,7 @@ export const siteContent: SiteContent = {
     ],
   },
   footer:
-    "Signal Ledger: support-first proof, packaged to read fast.",
+    "English ships first. Support-first credibility stays intact while the public packaging reads wider and cleaner.",
   resume: resumeContent,
   caseStudies,
 };

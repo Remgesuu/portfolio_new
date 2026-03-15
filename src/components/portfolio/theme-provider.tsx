@@ -7,7 +7,6 @@ import {
   useEffect,
   useMemo,
   useState,
-  useSyncExternalStore,
 } from "react";
 
 export type Theme = "light" | "dark" | "system";
@@ -43,43 +42,51 @@ function applyTheme(resolved: ResolvedTheme) {
   document.documentElement.setAttribute("data-theme", resolved);
 }
 
-function subscribeToSystemTheme(onStoreChange: () => void) {
-  if (typeof window === "undefined") {
-    return () => undefined;
-  }
-
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  mediaQuery.addEventListener("change", onStoreChange);
-
-  return () => mediaQuery.removeEventListener("change", onStoreChange);
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => getStoredTheme());
-  const systemTheme = useSyncExternalStore<ResolvedTheme>(
-    subscribeToSystemTheme,
-    getSystemTheme,
-    () => "light",
-  );
-  const resolvedTheme: ResolvedTheme =
-    theme === "system" ? systemTheme : (theme as ResolvedTheme);
+  const [theme, setThemeState] = useState<Theme>("system");
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
+  const [mounted, setMounted] = useState(false);
 
+  // Initialize from storage and system preference
   useEffect(() => {
-    applyTheme(resolvedTheme);
-  }, [resolvedTheme]);
+    const stored = getStoredTheme();
+    const resolved = stored === "system" ? getSystemTheme() : stored;
+    setThemeState(stored);
+    setResolvedTheme(resolved);
+    applyTheme(resolved);
+    setMounted(true);
+  }, []);
+
+  // Listen for system preference changes
+  useEffect(() => {
+    if (!mounted) return;
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = () => {
+      if (theme === "system") {
+        const newResolved = getSystemTheme();
+        setResolvedTheme(newResolved);
+        applyTheme(newResolved);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [theme, mounted]);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, newTheme);
-    }
+    localStorage.setItem(STORAGE_KEY, newTheme);
 
-    applyTheme(newTheme === "system" ? getSystemTheme() : newTheme);
+    const resolved = newTheme === "system" ? getSystemTheme() : newTheme;
+    setResolvedTheme(resolved);
+    applyTheme(resolved);
   }, []);
 
   const value = useMemo(
     () => ({ theme, resolvedTheme, setTheme }),
-    [theme, resolvedTheme, setTheme],
+    [theme, resolvedTheme, setTheme]
   );
 
   return (

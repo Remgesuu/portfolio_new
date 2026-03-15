@@ -1,8 +1,0 @@
-<svg width="640" height="120" viewBox="0 0 640 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="8" y="8" width="104" height="104" rx="24" fill="#F7F3EC" stroke="#181C20" stroke-width="4"/>
-  <rect x="40" y="40" width="24" height="40" rx="8" stroke="#181C20" stroke-width="6"/>
-  <path d="M68 24V96" stroke="#181C20" stroke-width="6" stroke-linecap="square"/>
-  <path d="M60 60H48" stroke="#181C20" stroke-width="6" stroke-linecap="square"/>
-  <text x="146" y="54" fill="#181C20" font-family="'Public Sans', Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="10">GRIGORII</text>
-  <text x="148" y="86" fill="#6F887D" font-family="'IBM Plex Mono', monospace" font-size="18" letter-spacing="5">SUPPORT SYSTEMS</text>
-</svg>

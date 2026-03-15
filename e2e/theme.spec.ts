@@ -3,7 +3,12 @@ import { expect, test } from "@playwright/test";
 test.describe("Theme Toggle", () => {
   test("toggles between light and dark themes", async ({ page }) => {
     await page.goto("/");
-
+    
+    // Get initial theme
+    const initialTheme = await page.evaluate(() => {
+      return document.documentElement.getAttribute("data-theme");
+    });
+    
     // Click dark theme button
     const darkButton = page.locator("[aria-label='Use dark theme']");
     await darkButton.click();

@@ -27,7 +27,7 @@ test.describe("Accessibility", () => {
     });
 
     test("skip link works on all pages", async ({ page }) => {
-      const pages = ["/", "/resume", "/cases/darkest-afk"];
+      const pages = ["/", "/resume", "/cases/ai-incident-workflow"];
       
       for (const pagePath of pages) {
         await page.goto(pagePath);
@@ -80,7 +80,7 @@ test.describe("Accessibility", () => {
       // Tab through elements and verify focus is visible
       const interactiveElements = [
         "a[href='#main-content']", // skip link
-        "nav[aria-label='Primary'] a", // navigation links
+        ".topbar a", // navigation links
         "[role='radio']", // theme toggle
       ];
       
