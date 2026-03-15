@@ -77,7 +77,7 @@ export function CTAButton({
   rightIcon,
   className = "",
   disabled,
-  ...props
+  onClick,
 }: CTAButtonProps) {
   const baseStyles =
     "inline-flex items-center justify-center rounded-full font-medium transition-all duration-200 ease-out-quint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-primary disabled:opacity-50 disabled:cursor-not-allowed";
