@@ -58,20 +58,20 @@ export function BookSequenceCanvas({
 
   const bookY = useTransform(
     progressMotion,
-    BOOK_CONFIG.transforms.y.keys,
-    BOOK_CONFIG.transforms.y.values
+    [...BOOK_CONFIG.transforms.y.keys],
+    [...BOOK_CONFIG.transforms.y.values]
   );
   
   const bookScale = useTransform(
     progressMotion,
-    BOOK_CONFIG.transforms.scale.keys,
-    BOOK_CONFIG.transforms.scale.values
+    [...BOOK_CONFIG.transforms.scale.keys],
+    [...BOOK_CONFIG.transforms.scale.values]
   );
   
   const bookOpacity = useTransform(
     progressMotion,
-    BOOK_CONFIG.transforms.opacity.keys,
-    BOOK_CONFIG.transforms.opacity.values
+    [...BOOK_CONFIG.transforms.opacity.keys],
+    [...BOOK_CONFIG.transforms.opacity.values]
   );
 
   return (
