@@ -1,29 +1,33 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 
 import { SkipLink } from "@/components/portfolio/skip-link";
 import { SmoothScrollProvider } from "@/components/portfolio/smooth-scroll";
+import { LenisProvider } from "@/components/portfolio/lenis-provider";
+import { CustomCursorProvider } from "@/components/portfolio/custom-cursor";
+import { PreloaderProvider } from "@/components/portfolio/preloader";
 import { ThemeProvider, themeScript } from "@/components/portfolio/theme-provider";
 import { siteContent } from "@/content/site-content";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 import "./globals.css";
 
-const instrumentSans = Instrument_Sans({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f9f4ed" },
-    { media: "(prefers-color-scheme: dark)", color: "#11161b" },
+    { media: "(prefers-color-scheme: light)", color: "#0a0a0c" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0c" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -86,12 +90,18 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
       </head>
-      <body className={`${instrumentSans.variable} ${plexMono.variable}`}>
+      <body className={`${spaceGrotesk.variable} ${plexMono.variable}`}>
         <SkipLink />
         <ThemeProvider>
-          <SmoothScrollProvider>
-            {children}
-          </SmoothScrollProvider>
+          <LenisProvider>
+            <CustomCursorProvider>
+              <PreloaderProvider>
+                <SmoothScrollProvider>
+                  {children}
+                </SmoothScrollProvider>
+              </PreloaderProvider>
+            </CustomCursorProvider>
+          </LenisProvider>
         </ThemeProvider>
       </body>
     </html>

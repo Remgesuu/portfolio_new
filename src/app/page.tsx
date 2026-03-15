@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
+import { HeroEntrance, HeroItem, SplitText } from "@/components/portfolio/hero-entrance";
 import { CTAButton } from "@/components/portfolio/cta-button";
 import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
 import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
@@ -52,10 +53,10 @@ export default function Home() {
         </header>
       </Reveal>
 
-      {/* Hero section with choreographed entrance */}
-      <section className={styles.hero}>
+      {/* Hero section with cinematic entrance */}
+      <HeroEntrance className={styles.hero}>
         <div className={styles.heroCopy}>
-          <Reveal variant="fade" delay={0.1} duration={0.7}>
+          <HeroItem>
             <p className={styles.eyebrow}>
               <Typewriter
                 phrases={[
@@ -69,21 +70,23 @@ export default function Home() {
                 pauseDuration={2500}
               />
             </p>
-          </Reveal>
+          </HeroItem>
 
-          <Reveal variant="fade" delay={0.15} duration={0.7}>
+          <HeroItem>
             <p className={styles.heroPositioning}>{hero.positioning}</p>
-          </Reveal>
+          </HeroItem>
 
-          <Reveal variant="blur-to-crisp" delay={0.2} duration={1}>
-            <h1 className={styles.heroTitle}>{hero.title}</h1>
-          </Reveal>
+          <HeroItem variant="title">
+            <h1 className={styles.heroTitle}>
+              <SplitText type="words">{hero.title}</SplitText>
+            </h1>
+          </HeroItem>
 
-          <Reveal variant="fade-up" delay={0.35} duration={0.8}>
+          <HeroItem>
             <p className={styles.heroDescription}>{hero.description}</p>
-          </Reveal>
+          </HeroItem>
 
-          <Reveal variant="fade-up" delay={0.45} duration={0.7}>
+          <HeroItem>
             <div className={styles.heroActions}>
               {hero.ctas.map((cta) =>
                 isInternalRouteHref(cta.href) ? (
@@ -111,16 +114,16 @@ export default function Home() {
                 ),
               )}
             </div>
-          </Reveal>
+          </HeroItem>
 
-          <Reveal variant="fade-up" delay={0.55} duration={0.6}>
+          <HeroItem>
             <a className={styles.heroEmail} href={`mailto:${meta.email}`}>
               {meta.email}
             </a>
-          </Reveal>
+          </HeroItem>
         </div>
 
-        <Reveal className={styles.heroVisual} variant="scale-in" delay={0.25} duration={1}>
+        <HeroItem variant="visual" className={styles.heroVisual}>
           <div className={styles.profileStage}>
             <div className={styles.profileBackdrop} aria-hidden="true">
               <AmbientHero />
@@ -165,8 +168,8 @@ export default function Home() {
           </div>
 
           <p className={styles.heroNote}>{hero.note}</p>
-        </Reveal>
-      </section>
+        </HeroItem>
+      </HeroEntrance>
 
       {/* Cases section with staggered cards */}
       <Reveal className={styles.section} id="cases" delay={0.06}>

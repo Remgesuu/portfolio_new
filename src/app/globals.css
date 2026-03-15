@@ -1,9 +1,36 @@
 /* ============================================
-   Design System Tokens - Cinematic Luxe Motion
+   Design System Tokens - Cinematic Dark Minimalism
+   Inspired by bokoko33.me
    ============================================ */
 
 :root {
-  /* Core palette */
+  /* Core palette - Deep blacks */
+  --color-void: #000000;
+  --color-night-900: #0a0a0c;
+  --color-night-800: #0f0f12;
+  --color-night-700: #141418;
+  --color-night-600: #1a1a1f;
+  --color-night-500: #222228;
+  --color-night-400: #2a2a32;
+  --color-night-300: #3a3a44;
+  --color-night-200: #4a4a56;
+  --color-night-100: #6a6a78;
+  
+  /* Text hierarchy */
+  --color-white: #ffffff;
+  --color-white-90: rgba(255, 255, 255, 0.9);
+  --color-white-70: rgba(255, 255, 255, 0.7);
+  --color-white-50: rgba(255, 255, 255, 0.5);
+  --color-white-30: rgba(255, 255, 255, 0.3);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+  --color-white-05: rgba(255, 255, 255, 0.05);
+  
+  /* Accent - Minimal, impactful */
+  --color-accent-primary: #e8e4df;
+  --color-accent-glow: #f5f2ed;
+  --color-accent-subtle: rgba(232, 228, 223, 0.15);
+  
+  /* Legacy compatibility */
   --color-warm-50: #fdfbf8;
   --color-warm-100: #f9f4ed;
   --color-warm-200: #f4efe8;
@@ -24,75 +51,81 @@
   --color-accent-coral-dark: #c08a68;
 
   /* Layout tokens */
-  --page-width: min(1240px, calc(100vw - 3rem));
-  --section-gap: clamp(4.5rem, 8vw, 7rem);
-  --radius-xl: 2.25rem;
-  --radius-lg: 1.6rem;
-  --radius-md: 1rem;
-  --radius-sm: 0.5rem;
+  --page-width: min(1400px, calc(100vw - 4rem));
+  --section-gap: clamp(6rem, 12vw, 10rem);
+  --radius-xl: 1.5rem;
+  --radius-lg: 1rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
 
-  /* Motion tokens */
+  /* Motion tokens - cinematic timing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --transition-fast: 150ms var(--ease-out-quint);
-  --transition-base: 220ms var(--ease-out-quint);
-  --transition-slow: 500ms var(--ease-out-quint);
-  --transition-slower: 800ms var(--ease-out-expo);
+  --transition-base: 280ms var(--ease-out-quint);
+  --transition-slow: 600ms var(--ease-out-expo);
+  --transition-slower: 1000ms var(--ease-out-expo);
+  --transition-cinematic: 1400ms var(--ease-out-expo);
 }
 
 /* ============================================
-   Light Theme (Default)
+   Dark Theme (Default) - Cinematic Minimalism
    ============================================ */
 :root,
-[data-theme="light"] {
-  /* Background hierarchy */
-  --bg-primary: var(--color-warm-100);
-  --bg-secondary: var(--color-warm-200);
-  --bg-surface: rgba(255, 255, 255, 0.62);
-  --bg-elevated: rgba(255, 255, 255, 0.78);
-  --bg-glass: rgba(251, 248, 243, 0.78);
-  --bg-glass-strong: rgba(251, 248, 243, 0.92);
+[data-theme="dark"] {
+  /* Background hierarchy - Deep void blacks */
+  --bg-primary: var(--color-night-900);
+  --bg-secondary: var(--color-night-800);
+  --bg-surface: var(--color-night-700);
+  --bg-elevated: var(--color-night-600);
+  --bg-glass: rgba(10, 10, 12, 0.85);
+  --bg-glass-strong: rgba(10, 10, 12, 0.95);
 
-  /* Text hierarchy */
-  --text-primary: #16171a;
-  --text-secondary: #54585f;
-  --text-disabled: #656966;
-  --text-inverse: #fdfbf8;
+  /* Text hierarchy - High contrast */
+  --text-primary: var(--color-white);
+  --text-secondary: var(--color-white-70);
+  --text-disabled: var(--color-white-50);
+  --text-inverse: var(--color-night-900);
 
-  /* Accent colors */
-  --accent-primary: var(--color-accent-teal);
-  --accent-primary-hover: var(--color-accent-teal-dark);
-  --accent-primary-subtle: rgba(139, 183, 188, 0.18);
-  --accent-secondary: var(--color-accent-coral);
-  --accent-secondary-hover: var(--color-accent-coral-dark);
-  --accent-secondary-subtle: rgba(214, 169, 141, 0.18);
+  /* Accent colors - Warm cream on dark */
+  --accent-primary: var(--color-accent-primary);
+  --accent-primary-hover: var(--color-accent-glow);
+  --accent-primary-subtle: var(--color-accent-subtle);
+  --accent-secondary: var(--color-white-70);
+  --accent-secondary-hover: var(--color-white);
+  --accent-secondary-subtle: var(--color-white-10);
 
-  /* Border */
-  --border-default: rgba(22, 23, 26, 0.1);
-  --border-subtle: rgba(22, 23, 26, 0.06);
-  --border-strong: rgba(22, 23, 26, 0.18);
-  --border-glow: rgba(139, 183, 188, 0.24);
+  /* Border - Subtle luminous edges */
+  --border-default: var(--color-white-10);
+  --border-subtle: var(--color-white-05);
+  --border-strong: var(--color-white-30);
+  --border-glow: rgba(232, 228, 223, 0.2);
 
-  /* Shadows */
-  --shadow-sm: 0 4px 16px rgba(92, 79, 66, 0.06);
-  --shadow-md: 0 12px 40px rgba(92, 79, 66, 0.1);
-  --shadow-lg: 0 24px 80px rgba(87, 71, 53, 0.14);
-  --shadow-card: 0 16px 48px rgba(103, 84, 62, 0.1);
-  --shadow-soft: 0 24px 80px rgba(87, 71, 53, 0.12);
+  /* Shadows - Deep and dramatic */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 48px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 32px 100px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 60px rgba(232, 228, 223, 0.1);
 
   /* Grain overlay */
-  --grain-opacity: 0.45;
-  --grain-blend: multiply;
+  --grain-opacity: 0.15;
+  --grain-blend: soft-light;
 
-  /* Gradient accents */
-  --gradient-ambient-teal: rgba(152, 201, 201, 0.22);
-  --gradient-ambient-coral: rgba(221, 179, 149, 0.22);
+  /* Gradient accents - Subtle */
+  --gradient-ambient-primary: rgba(232, 228, 223, 0.03);
+  --gradient-ambient-secondary: rgba(255, 255, 255, 0.02);
+  --gradient-ambient-teal: rgba(139, 183, 188, 0.06);
+  --gradient-ambient-coral: rgba(214, 169, 141, 0.05);
 
   /* Legacy aliases (backward compatibility) */
-  --paper: var(--color-warm-200);
-  --paper-strong: var(--color-warm-50);
-  --paper-shadow: var(--color-warm-300);
+  --paper: var(--color-night-800);
+  --paper-strong: var(--color-night-700);
+  --paper-shadow: var(--color-void);
   --ink: var(--text-primary);
   --ink-soft: var(--text-secondary);
   --ink-faint: var(--text-disabled);
@@ -101,161 +134,63 @@
   --accent-cool: var(--accent-primary);
   --accent-warm: var(--accent-secondary);
   --shadow-soft: var(--shadow-lg);
-  --shadow-card: var(--shadow-md);
 
-  /* Component-specific theme variables - Light */
-  --topbar-inset-glow: rgba(255, 255, 255, 0.5);
+  /* Component-specific theme variables */
+  --topbar-inset-glow: var(--color-white-05);
   --profile-stage-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.1), transparent 24%),
-    radial-gradient(circle at 80% 20%, rgba(214, 169, 141, 0.12), transparent 30%),
-    rgba(255, 255, 255, 0.48);
-  --case-featured-bg:
-    radial-gradient(circle at 5% 90%, rgba(139, 183, 188, 0.08), transparent 30%),
-    rgba(255, 255, 255, 0.6);
-  --case-visual-bg: linear-gradient(180deg, rgba(249, 244, 237, 0.9), rgba(237, 230, 220, 0.7));
+    radial-gradient(circle at top left, var(--gradient-ambient-primary), transparent 40%),
+    radial-gradient(circle at 80% 20%, var(--gradient-ambient-secondary), transparent 50%),
+    var(--color-night-800);
+  --case-featured-bg: var(--color-night-800);
+  --case-visual-bg: linear-gradient(180deg, var(--color-night-700), var(--color-night-800));
   --contact-lead-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.18), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(214, 169, 141, 0.18), transparent 32%),
-    rgba(255, 255, 255, 0.62);
-  --case-image-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.22), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(214, 169, 141, 0.22), transparent 30%),
-    rgba(255, 255, 255, 0.62);
-  --metric-item-bg: rgba(246, 240, 232, 0.74);
-  --resume-shell-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.1), transparent 22%),
-    radial-gradient(circle at 85% 16%, rgba(214, 169, 141, 0.12), transparent 24%),
-    rgba(255, 255, 255, 0.62);
-  --portrait-frame-bg: linear-gradient(180deg, rgba(249, 244, 237, 0.9), rgba(237, 230, 220, 0.72));
+    radial-gradient(circle at top left, var(--gradient-ambient-primary), transparent 40%),
+    var(--color-night-800);
+  --case-image-bg: var(--color-night-700);
+  --metric-item-bg: var(--color-night-700);
+  --resume-shell-bg: var(--color-night-800);
+  --portrait-frame-bg: linear-gradient(180deg, var(--color-night-700), var(--color-night-800));
   
-  /* Ambient Hero - Light */
-  --ambient-frame-bg:
-    radial-gradient(circle at 25% 20%, rgba(144, 188, 188, 0.32), transparent 32%),
-    radial-gradient(circle at 74% 26%, rgba(221, 180, 153, 0.34), transparent 34%),
-    linear-gradient(180deg, rgba(252, 248, 242, 0.9), rgba(240, 233, 221, 0.62));
-  --ambient-inset-glow: rgba(255, 255, 255, 0.8);
-  --ambient-grid-color: rgba(17, 18, 22, 0.04);
-  --ambient-orb-core: 
-    radial-gradient(circle at 30% 30%, rgba(255, 249, 243, 0.88), rgba(255, 249, 243, 0.1) 36%),
-    conic-gradient(from 110deg, rgba(122, 187, 191, 0.95), rgba(255, 231, 207, 0.92), rgba(122, 187, 191, 0.95));
-  --ambient-orb-secondary:
-    radial-gradient(circle at 50% 40%, rgba(255, 248, 239, 0.8), transparent 36%),
-    conic-gradient(from 220deg, rgba(237, 188, 160, 0.78), rgba(157, 202, 204, 0.72), rgba(237, 188, 160, 0.8));
-  --ambient-orb-highlight:
-    radial-gradient(circle, rgba(255, 253, 250, 0.9), rgba(255, 253, 250, 0.18) 55%, transparent 70%);
-  --ambient-core-shadow:
-    0 0 80px rgba(122, 187, 191, 0.22),
-    0 0 120px rgba(226, 179, 147, 0.26);
-  --ambient-ring-color: rgba(17, 18, 22, 0.1);
-  --ambient-haze-color: rgba(248, 242, 235, 0.78);
-  --ambient-shimmer-color: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  /* Ambient Hero - Dark */
+  --ambient-frame-bg: var(--color-night-800);
+  --ambient-inset-glow: var(--color-white-05);
+  --ambient-grid-color: var(--color-white-05);
+  --ambient-orb-core: radial-gradient(circle, var(--color-white-10), transparent 70%);
+  --ambient-orb-secondary: radial-gradient(circle, var(--color-white-05), transparent 60%);
+  --ambient-orb-highlight: radial-gradient(circle, var(--color-white-30), transparent 50%);
+  --ambient-core-shadow: 0 0 100px rgba(232, 228, 223, 0.08);
+  --ambient-ring-color: var(--color-white-10);
+  --ambient-haze-color: rgba(10, 10, 12, 0.9);
+  --ambient-shimmer-color: linear-gradient(90deg, transparent, var(--color-white-10), transparent);
 }
 
 /* ============================================
-   Dark Theme - Smoked Graphite
+   Light Theme (Optional) - Preserved for toggle
    ============================================ */
-[data-theme="dark"] {
-  /* Background hierarchy */
-  --bg-primary: var(--color-graphite-500);
-  --bg-secondary: var(--color-graphite-400);
-  --bg-surface: rgba(42, 48, 56, 0.62);
-  --bg-elevated: rgba(42, 48, 56, 0.88);
-  --bg-glass: rgba(31, 37, 43, 0.82);
-  --bg-glass-strong: rgba(31, 37, 43, 0.94);
-
-  /* Text hierarchy */
-  --text-primary: #f0f1f2;
-  --text-secondary: #a0a5ab;
-  --text-disabled: #6b7178;
-  --text-inverse: #11161b;
-
-  /* Accent colors - slightly desaturated for dark */
-  --accent-primary: var(--color-accent-teal-light);
-  --accent-primary-hover: var(--color-accent-teal);
-  --accent-primary-subtle: rgba(168, 206, 210, 0.14);
-  --accent-secondary: var(--color-accent-coral-light);
-  --accent-secondary-hover: var(--color-accent-coral);
-  --accent-secondary-subtle: rgba(229, 196, 174, 0.14);
-
-  /* Border - luminous edges */
-  --border-default: rgba(255, 255, 255, 0.1);
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --border-glow: rgba(168, 206, 210, 0.22);
-
-  /* Shadows - deeper, less prominent */
-  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.28);
-  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.36);
-  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.24);
-  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.32);
-
-  /* Grain overlay */
-  --grain-opacity: 0.32;
-  --grain-blend: soft-light;
-
-  /* Gradient accents - more subtle */
-  --gradient-ambient-teal: rgba(139, 183, 188, 0.12);
-  --gradient-ambient-coral: rgba(214, 169, 141, 0.1);
-
-  /* Legacy aliases */
-  --paper: var(--color-graphite-400);
-  --paper-strong: var(--color-graphite-300);
-  --paper-shadow: var(--color-graphite-600);
-  --ink: var(--text-primary);
-  --ink-soft: var(--text-secondary);
-  --ink-faint: var(--text-disabled);
-  --line: var(--border-default);
-  --line-strong: var(--border-strong);
-  --accent-cool: var(--accent-primary);
-  --accent-warm: var(--accent-secondary);
-
-  /* Component-specific theme variables - Dark */
-  --topbar-inset-glow: rgba(255, 255, 255, 0.04);
-  --profile-stage-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.08), transparent 24%),
-    radial-gradient(circle at 80% 20%, rgba(214, 169, 141, 0.06), transparent 30%),
-    rgba(42, 48, 56, 0.48);
-  --case-featured-bg:
-    radial-gradient(circle at 5% 90%, rgba(139, 183, 188, 0.06), transparent 30%),
-    rgba(42, 48, 56, 0.6);
-  --case-visual-bg: linear-gradient(180deg, rgba(42, 48, 56, 0.9), rgba(31, 37, 43, 0.85));
-  --contact-lead-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.1), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(214, 169, 141, 0.1), transparent 32%),
-    rgba(42, 48, 56, 0.62);
-  --case-image-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.12), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(214, 169, 141, 0.1), transparent 30%),
-    rgba(42, 48, 56, 0.62);
-  --metric-item-bg: rgba(31, 37, 43, 0.74);
-  --resume-shell-bg:
-    radial-gradient(circle at top left, rgba(139, 183, 188, 0.08), transparent 22%),
-    radial-gradient(circle at 85% 16%, rgba(214, 169, 141, 0.06), transparent 24%),
-    rgba(42, 48, 56, 0.62);
-  --portrait-frame-bg: linear-gradient(180deg, rgba(42, 48, 56, 0.9), rgba(31, 37, 43, 0.85));
+[data-theme="light"] {
+  --bg-primary: var(--color-warm-100);
+  --bg-secondary: var(--color-warm-200);
+  --bg-surface: rgba(255, 255, 255, 0.8);
+  --bg-elevated: rgba(255, 255, 255, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-glass-strong: rgba(255, 255, 255, 0.85);
   
-  /* Ambient Hero - Dark */
-  --ambient-frame-bg:
-    radial-gradient(circle at 25% 20%, rgba(139, 183, 188, 0.18), transparent 32%),
-    radial-gradient(circle at 74% 26%, rgba(214, 169, 141, 0.16), transparent 34%),
-    linear-gradient(180deg, rgba(42, 48, 56, 0.9), rgba(31, 37, 43, 0.85));
-  --ambient-inset-glow: rgba(255, 255, 255, 0.06);
-  --ambient-grid-color: rgba(255, 255, 255, 0.04);
-  --ambient-orb-core:
-    radial-gradient(circle at 30% 30%, rgba(168, 206, 210, 0.28), rgba(168, 206, 210, 0.05) 36%),
-    conic-gradient(from 110deg, rgba(139, 183, 188, 0.65), rgba(214, 169, 141, 0.55), rgba(139, 183, 188, 0.65));
-  --ambient-orb-secondary:
-    radial-gradient(circle at 50% 40%, rgba(229, 196, 174, 0.2), transparent 36%),
-    conic-gradient(from 220deg, rgba(214, 169, 141, 0.45), rgba(139, 183, 188, 0.4), rgba(214, 169, 141, 0.45));
-  --ambient-orb-highlight:
-    radial-gradient(circle, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.03) 55%, transparent 70%);
-  --ambient-core-shadow:
-    0 0 80px rgba(139, 183, 188, 0.12),
-    0 0 120px rgba(214, 169, 141, 0.1);
-  --ambient-ring-color: rgba(255, 255, 255, 0.08);
-  --ambient-haze-color: rgba(17, 22, 27, 0.85);
-  --ambient-shimmer-color: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  --text-primary: #0a0a0c;
+  --text-secondary: #3a3a44;
+  --text-disabled: #6a6a78;
+  --text-inverse: #ffffff;
+  
+  --accent-primary: #0a0a0c;
+  --accent-primary-hover: #1a1a1f;
+  --accent-primary-subtle: rgba(10, 10, 12, 0.1);
+  
+  --border-default: rgba(10, 10, 12, 0.1);
+  --border-subtle: rgba(10, 10, 12, 0.05);
+  --border-strong: rgba(10, 10, 12, 0.2);
+  
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 12px 48px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.16);
 }
 
 /* ============================================
@@ -294,11 +229,12 @@ body {
     );
 }
 
-[data-theme="dark"] body {
+/* Default dark body - clean void with subtle gradients */
+body {
   background:
-    radial-gradient(circle at top left, var(--gradient-ambient-teal), transparent 30%),
-    radial-gradient(circle at 78% 18%, var(--gradient-ambient-coral), transparent 32%),
-    linear-gradient(180deg, var(--color-graphite-400), var(--color-graphite-500));
+    radial-gradient(ellipse 80% 60% at 20% 10%, var(--gradient-ambient-primary), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 80% 90%, var(--gradient-ambient-secondary), transparent 40%),
+    var(--color-night-900);
 }
 
 /* Subtle grain texture overlay - reduced for cleaner look */
