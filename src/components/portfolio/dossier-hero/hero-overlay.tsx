@@ -130,18 +130,24 @@ function LeftCopyContent({
   const eyebrowScale = useTransform(progress, [...transforms.eyebrow.scale.keys], [...transforms.eyebrow.scale.values]);
   const eyebrowOpacity = useTransform(progress, [...transforms.eyebrow.opacity.keys], [...transforms.eyebrow.opacity.values]);
   const eyebrowBlur = useTransform(progress, [...transforms.eyebrow.blur.keys], [...transforms.eyebrow.blur.values]);
+  // Pre-compute blur filter to avoid hooks in JSX
+  const eyebrowFilter = useTransform(eyebrowBlur, (b) => `blur(${b}px)`);
 
   // Title transforms
   const titleY = useTransform(progress, [...transforms.title.y.keys], [...transforms.title.y.values]);
   const titleScale = useTransform(progress, [...transforms.title.scale.keys], [...transforms.title.scale.values]);
   const titleOpacity = useTransform(progress, [...transforms.title.opacity.keys], [...transforms.title.opacity.values]);
   const titleBlur = useTransform(progress, [...transforms.title.blur.keys], [...transforms.title.blur.values]);
+  // Pre-compute blur filter to avoid hooks in JSX
+  const titleFilter = useTransform(titleBlur, (b) => `blur(${b}px)`);
 
   // Description transforms
   const descY = useTransform(progress, [...transforms.description.y.keys], [...transforms.description.y.values]);
   const descScale = useTransform(progress, [...transforms.description.scale.keys], [...transforms.description.scale.values]);
   const descOpacity = useTransform(progress, [...transforms.description.opacity.keys], [...transforms.description.opacity.values]);
   const descBlur = useTransform(progress, [...transforms.description.blur.keys], [...transforms.description.blur.values]);
+  // Pre-compute blur filter to avoid hooks in JSX
+  const descFilter = useTransform(descBlur, (b) => `blur(${b}px)`);
 
   // CTA transforms
   const ctaY = useTransform(progress, [...transforms.cta.y.keys], [...transforms.cta.y.values]);
@@ -181,7 +187,7 @@ function LeftCopyContent({
           y: eyebrowY,
           scale: eyebrowScale,
           opacity: eyebrowOpacity,
-          filter: useTransform(eyebrowBlur, (b) => `blur(${b}px)`),
+          filter: eyebrowFilter,
           color: textSecondary,
         }}
       >
@@ -195,7 +201,7 @@ function LeftCopyContent({
           y: titleY,
           scale: titleScale,
           opacity: titleOpacity,
-          filter: useTransform(titleBlur, (b) => `blur(${b}px)`),
+          filter: titleFilter,
           color: textPrimary,
         }}
       >
@@ -209,7 +215,7 @@ function LeftCopyContent({
           y: descY,
           scale: descScale,
           opacity: descOpacity,
-          filter: useTransform(descBlur, (b) => `blur(${b}px)`),
+          filter: descFilter,
           color: textSecondary,
         }}
       >
@@ -308,6 +314,8 @@ function RightRailContent({
     [...EVIDENCE_TRANSFORMS.container.blur.keys],
     [...EVIDENCE_TRANSFORMS.container.blur.values]
   );
+  // Pre-compute blur filter to avoid hooks in JSX
+  const evidenceFilter = useTransform(evidenceBlur, (b) => `blur(${b}px)`);
 
   // Get current stage data
   const showStageContent = stage.id !== "intro" && stage.id !== "resolved";
@@ -360,7 +368,7 @@ function RightRailContent({
           y: evidenceY,
           scale: evidenceScale,
           opacity: evidenceOpacity,
-          filter: useTransform(evidenceBlur, (b) => `blur(${b}px)`),
+          filter: evidenceFilter,
         }}
       >
         <p className={styles.evidenceLabel}>EVIDENCE</p>
