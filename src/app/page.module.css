@@ -166,9 +166,10 @@
   max-width: 14ch;
   margin-top: 1rem;
   color: var(--text-primary);
-  font-size: clamp(3.2rem, 7vw, 5.5rem);
-  line-height: 1;
-  letter-spacing: -0.05em;
+  font-size: clamp(3.5rem, 9vw, 5.625rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
@@ -375,14 +376,26 @@
 }
 
 /* ============================================
-   Sections
+   Sections - Enhanced spacing and backgrounds
    ============================================ */
 .section {
   margin-top: var(--section-gap);
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  border-radius: var(--radius-xl);
 }
 
 .section:first-of-type {
   margin-top: clamp(3rem, 5vw, 4.5rem);
+}
+
+/* Alternating section backgrounds for visual rhythm */
+.section:nth-of-type(even) {
+  background: var(--bg-surface);
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+  padding-right: clamp(1.5rem, 3vw, 2.5rem);
+  margin-left: calc(var(--page-padding) * -1);
+  margin-right: calc(var(--page-padding) * -1);
+  border-radius: 0;
 }
 
 .sectionHeader {
@@ -396,9 +409,10 @@
 .sectionTitle {
   max-width: 18ch;
   color: var(--text-primary);
-  font-size: clamp(2rem, 4vw, 3.6rem);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 
 .sectionIntro {

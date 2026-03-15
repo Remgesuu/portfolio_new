@@ -166,14 +166,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.casesGrid}>
+        <ChoreographyContainer 
+          className={styles.casesGrid}
+          staggerDelay={0.12}
+          direction="up"
+        >
           {siteContent.caseStudies.map((caseStudy, index) => (
-            <Reveal
-              key={caseStudy.slug}
-              variant="fade-up"
-              delay={0.08 * index}
-              duration={0.8}
-            >
+            <ChoreographyItem key={caseStudy.slug}>
               <article 
                 className={index === 0 ? styles.caseCardFeatured : styles.caseCardSecondary}
               >
@@ -219,9 +218,9 @@ export default function Home() {
                   </Link>
                 </div>
               </article>
-            </Reveal>
+            </ChoreographyItem>
           ))}
-        </div>
+        </ChoreographyContainer>
       </Reveal>
 
       {/* Builds section */}
@@ -234,14 +233,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.buildsGrid}>
-          {builds.items.map((item, index) => (
-            <Reveal
-              key={item.title}
-              variant="fade-up"
-              delay={0.06 * index}
-              duration={0.75}
-            >
+        <ChoreographyContainer 
+          className={styles.buildsGrid}
+          staggerDelay={0.1}
+          direction="up"
+        >
+          {builds.items.map((item) => (
+            <ChoreographyItem key={item.title}>
               <article className={styles.buildCard}>
                 <div className={styles.buildMeta}>
                   <p className={styles.buildEyebrow}>{item.eyebrow}</p>
@@ -268,9 +266,9 @@ export default function Home() {
                   {item.linkLabel}
                 </a>
               </article>
-            </Reveal>
+            </ChoreographyItem>
           ))}
-        </div>
+        </ChoreographyContainer>
       </Reveal>
 
       {/* Strengths section */}
@@ -283,22 +281,21 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.strengthsGrid}>
-          {strengths.items.map((item, index) => (
-            <Reveal
-              key={item.title}
-              variant="fade-up"
-              delay={0.05 * index}
-              duration={0.7}
-            >
+        <ChoreographyContainer 
+          className={styles.strengthsGrid}
+          staggerDelay={0.08}
+          direction="up"
+        >
+          {strengths.items.map((item) => (
+            <ChoreographyItem key={item.title}>
               <article className={styles.strengthCard}>
                 <p className={styles.strengthEyebrow}>{item.eyebrow}</p>
                 <h3 className={styles.strengthTitle}>{item.title}</h3>
                 <p className={styles.strengthDescription}>{item.description}</p>
               </article>
-            </Reveal>
+            </ChoreographyItem>
           ))}
-        </div>
+        </ChoreographyContainer>
       </Reveal>
 
       {/* Contact section */}
@@ -311,20 +308,24 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.contactGrid}>
-          <Reveal variant="fade-up" delay={0.05} duration={0.7}>
+        <ChoreographyContainer 
+          className={styles.contactGrid}
+          staggerDelay={0.15}
+          direction="up"
+        >
+          <ChoreographyItem>
             <article className={styles.contactLead}>
               <p className={styles.contactStatement}>
                 Support credibility gets you screened. Systems leverage is what makes
                 the interview loop remember you.
               </p>
-              <Link className={styles.primaryAction} href={meta.resumeUrl}>
+              <CTAButton as="a" href={meta.resumeUrl} variant="primary" size="lg">
                 Open public resume
-              </Link>
+              </CTAButton>
             </article>
-          </Reveal>
+          </ChoreographyItem>
 
-          <Reveal variant="fade-up" delay={0.1} duration={0.7}>
+          <ChoreographyItem>
             <ul className={styles.contactList}>
               {contact.links.map((item) => (
                 <li key={item.label} className={styles.contactItem}>
@@ -349,8 +350,8 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-          </Reveal>
-        </div>
+          </ChoreographyItem>
+        </ChoreographyContainer>
       </Reveal>
 
       <footer className={styles.footer}>
