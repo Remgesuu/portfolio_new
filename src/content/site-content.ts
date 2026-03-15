@@ -86,6 +86,12 @@ export type CaseStudySection = {
   items: string[];
 };
 
+export type CaseStudyMeta = {
+  role: string;
+  environment: string;
+  artifactType: string;
+};
+
 export type CaseStudy = {
   slug: string;
   number: string;
@@ -95,6 +101,7 @@ export type CaseStudy = {
   outcome: string;
   previewImage: string;
   tags: string[];
+  meta: CaseStudyMeta;
   metrics: CaseStudyMetric[];
   sections: CaseStudySection[];
   artifacts: ArtifactLink[];
