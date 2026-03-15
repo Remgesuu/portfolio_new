@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
+import { CTAButton } from "@/components/portfolio/cta-button";
+import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabelShort } from "@/lib/content-utils";
 import { absoluteUrl } from "@/lib/site-url";
