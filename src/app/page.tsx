@@ -5,7 +5,9 @@ import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 import { CTAButton } from "@/components/portfolio/cta-button";
-import { FloatingContact } from "@/components/portfolio/floating-contact";
+import { FloatingContactRing } from "@/components/portfolio/floating-contact-ring";
+import { CTAStage } from "@/components/portfolio/inverse-section";
+import { OutlineCTAButton } from "@/components/portfolio/outline-cta-button";
 import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabel } from "@/lib/content-utils";
@@ -69,7 +71,7 @@ export default function Home() {
             <p className={styles.heroPositioning}>{hero.positioning}</p>
           </Reveal>
 
-          <Reveal variant="blur-to-crisp" delay={0.2} duration={1}>
+          <Reveal variant="fade-up" delay={0.2} duration={0.9}>
             <h1 className={styles.heroTitle}>{hero.title}</h1>
           </Reveal>
 
@@ -354,15 +356,39 @@ export default function Home() {
         </ChoreographyContainer>
       </Reveal>
 
+      {/* Final CTA Stage - Cuberto style */}
+      <CTAStage
+        id="cta"
+        heading="Ready to connect?"
+        subheading="Let's build something"
+      >
+        <OutlineCTAButton
+          as="a"
+          href={`mailto:${meta.email}`}
+          size="lg"
+        >
+          Send an email
+        </OutlineCTAButton>
+        <OutlineCTAButton
+          as="a"
+          href={meta.resumeUrl}
+          variant="ghost"
+          size="lg"
+        >
+          View resume
+        </OutlineCTAButton>
+      </CTAStage>
+
       <footer className={styles.footer}>
         <p>{footer}</p>
         <p>{meta.location}</p>
       </footer>
 
-      {/* Floating contact widget */}
-      <FloatingContact 
+      {/* Floating contact widget with rotating ring */}
+      <FloatingContactRing 
         email={meta.email}
-        showAfterScroll={600}
+        showAfterScroll={500}
+        ringText="contact"
       />
     </main>
   );

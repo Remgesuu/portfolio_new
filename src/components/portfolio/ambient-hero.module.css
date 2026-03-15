@@ -91,7 +91,33 @@
   height: 2px;
   background: var(--ambient-shimmer-color);
   pointer-events: none;
-  will-change: transform, opacity;
+  opacity: 0;
+}
+
+/* CSS Keyframe animations for orbs - better performance than JS */
+@keyframes orbFloat {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0) translateY(0) rotate(0deg) scale(1); }
+  25% { transform: translate(-50%, -50%) translateX(18px) translateY(-12px) rotate(5deg) scale(1.04); }
+  50% { transform: translate(-50%, -50%) translateX(-14px) translateY(16px) rotate(-4deg) scale(0.98); }
+  75% { transform: translate(-50%, -50%) translateX(8px) translateY(-6px) rotate(2deg) scale(1.02); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0) translateY(0) rotate(0deg) scale(1); }
+  25% { transform: translate(-50%, -50%) translateX(-16px) translateY(14px) rotate(-6deg) scale(0.97); }
+  50% { transform: translate(-50%, -50%) translateX(14px) translateY(-16px) rotate(5deg) scale(1.03); }
+  75% { transform: translate(-50%, -50%) translateX(-8px) translateY(8px) rotate(-3deg) scale(0.99); }
+}
+
+@keyframes orbPulse {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.75; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@keyframes shimmerSlide {
+  0%, 90%, 100% { transform: translateX(-100%); opacity: 0; }
+  40% { transform: translateX(100%); opacity: 0.6; }
+  50% { transform: translateX(200%); opacity: 0; }
 }
 
 @media (max-width: 900px) {
