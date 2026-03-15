@@ -25,11 +25,11 @@ interface TextSplitRevealProps {
   /** Whether to add blur effect */
   blur?: boolean;
   /** Easing function */
-  ease?: number[];
+  ease?: [number, number, number, number];
 }
 
-const easeOutExpo = [0.16, 1, 0.3, 1];
-const easeOutQuint = [0.22, 1, 0.36, 1];
+const easeOutExpo: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const easeOutQuint: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /**
  * TextSplitReveal - Cuberto-style text animation with character/word/line splits
