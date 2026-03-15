@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
-import { HeroEntrance, HeroItem, SplitText } from "@/components/portfolio/hero-entrance";
+import { DossierHero } from "@/components/portfolio/dossier-hero";
 import { CTAButton } from "@/components/portfolio/cta-button";
 import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
 import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
-import { Typewriter } from "@/components/portfolio/typewriter";
+
 import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabel } from "@/lib/content-utils";
@@ -18,8 +17,6 @@ import styles from "./page.module.css";
 export default function Home() {
   const {
     meta,
-    profileMedia,
-    hero,
     nav,
     cases,
     builds,
@@ -53,123 +50,11 @@ export default function Home() {
         </header>
       </Reveal>
 
-      {/* Hero section with cinematic entrance */}
-      <HeroEntrance className={styles.hero}>
-        <div className={styles.heroCopy}>
-          <HeroItem>
-            <p className={styles.eyebrow}>
-              <Typewriter
-                phrases={[
-                  "Support Operations",
-                  "AI Automation",
-                  "Workflow Systems",
-                  "Remote-Ready",
-                ]}
-                typingSpeed={70}
-                deletingSpeed={40}
-                pauseDuration={2500}
-              />
-            </p>
-          </HeroItem>
-
-          <HeroItem>
-            <p className={styles.heroPositioning}>{hero.positioning}</p>
-          </HeroItem>
-
-          <HeroItem variant="title">
-            <h1 className={styles.heroTitle}>
-              <SplitText type="words">{hero.title}</SplitText>
-            </h1>
-          </HeroItem>
-
-          <HeroItem>
-            <p className={styles.heroDescription}>{hero.description}</p>
-          </HeroItem>
-
-          <HeroItem>
-            <div className={styles.heroActions}>
-              {hero.ctas.map((cta) =>
-                isInternalRouteHref(cta.href) ? (
-                  <CTAButton
-                    key={cta.label}
-                    as="a"
-                    href={cta.href}
-                    variant={cta.variant === "primary" ? "primary" : "ghost"}
-                    size="lg"
-                  >
-                    {cta.label}
-                  </CTAButton>
-                ) : (
-                  <CTAButton
-                    key={cta.label}
-                    as="a"
-                    href={cta.href}
-                    variant={cta.variant === "primary" ? "primary" : "ghost"}
-                    size="lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {cta.label}
-                  </CTAButton>
-                ),
-              )}
-            </div>
-          </HeroItem>
-
-          <HeroItem>
-            <a className={styles.heroEmail} href={`mailto:${meta.email}`}>
-              {meta.email}
-            </a>
-          </HeroItem>
-        </div>
-
-        <HeroItem variant="visual" className={styles.heroVisual}>
-          <div className={styles.profileStage}>
-            <div className={styles.profileBackdrop} aria-hidden="true">
-              <AmbientHero />
-            </div>
-
-            <div className={styles.profilePhotoFrame}>
-              <Image
-                src={profileMedia.src}
-                alt={profileMedia.alt}
-                width={profileMedia.width}
-                height={profileMedia.height}
-                priority
-                sizes="(max-width: 720px) 100vw, (max-width: 1040px) 72vw, 34rem"
-                className={styles.profilePhoto}
-              />
-            </div>
-
-            <article className={styles.profilePanel}>
-              <div className={styles.profilePanelLead}>
-                <p className={styles.profileLabel}>Recruiter read</p>
-                <p className={styles.profileText}>{hero.positioning}</p>
-                <p className={styles.profileAvailability}>{hero.availability}</p>
-                <a 
-                  className={styles.profileGithub} 
-                  href={meta.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  github.com/CodeAvd
-                </a>
-              </div>
-
-              <div className={styles.heroSignals}>
-                {hero.signals.map((signal) => (
-                  <div key={signal.label} className={styles.signalCard}>
-                    <p className={styles.signalValue}>{signal.value}</p>
-                    <p className={styles.signalLabel}>{signal.label}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </div>
-
-          <p className={styles.heroNote}>{hero.note}</p>
-        </HeroItem>
-      </HeroEntrance>
+      {/* Dossier Hero - scroll-driven video sequence */}
+      <DossierHero 
+        resumeHref="/resume" 
+        contactHref="#contact" 
+      />
 
       {/* Cases section with staggered cards */}
       <Reveal className={styles.section} id="cases" delay={0.06}>

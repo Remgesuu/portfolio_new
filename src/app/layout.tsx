@@ -7,7 +7,6 @@ import { LenisProvider } from "@/components/portfolio/lenis-provider";
 import { CustomCursorProvider } from "@/components/portfolio/custom-cursor";
 import { PreloaderProvider } from "@/components/portfolio/preloader";
 import { ThemeProvider, themeScript } from "@/components/portfolio/theme-provider";
-import { DioramaBackground } from "@/components/portfolio/diorama-scene";
 import { siteContent } from "@/content/site-content";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
@@ -97,7 +96,6 @@ export default function RootLayout({
           <LenisProvider>
             <CustomCursorProvider>
               <PreloaderProvider>
-                <DioramaBackground />
                 <SmoothScrollProvider>
                   {children}
                 </SmoothScrollProvider>
