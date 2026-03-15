@@ -1,5 +1,7 @@
 /* Page Styles - Full-screen optimized */
 .page {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: var(--page-width);
   margin: 0 auto;
