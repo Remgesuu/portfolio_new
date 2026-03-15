@@ -36,16 +36,16 @@ export function HeroOverlay({
 }: HeroOverlayProps) {
   const { hero } = siteContent;
 
-  // Text color transitions
+  // Text color transitions - cast to string[] to avoid narrow literal types
   const textPrimary = useTransform(
     progress,
     [...TEXT_TRANSITION.primary.keys],
-    [...TEXT_TRANSITION.primary.colors]
+    [...TEXT_TRANSITION.primary.colors] as string[]
   );
   const textSecondary = useTransform(
     progress,
     [...TEXT_TRANSITION.secondary.keys],
-    [...TEXT_TRANSITION.secondary.colors]
+    [...TEXT_TRANSITION.secondary.colors] as string[]
   );
 
   // Left copy transforms
