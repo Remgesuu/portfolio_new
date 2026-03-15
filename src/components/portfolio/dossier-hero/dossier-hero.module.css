@@ -2,7 +2,7 @@
 
 .scrollTrack {
   position: relative;
-  height: 500vh; /* 5x viewport for scroll range */
+  height: 600vh; /* 6x viewport for scroll range - prevents "driving past" */
   width: 100%;
   z-index: 10;
   /* Initial background to prevent flash */
@@ -183,5 +183,17 @@
   
   .cornerMarks {
     display: none; /* Hide corner marks on mobile */
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .scrollTrack {
+    height: 200vh; /* Much reduced scroll range */
+  }
+  
+  .vignette,
+  .cornerMarks {
+    transition: none !important;
   }
 }

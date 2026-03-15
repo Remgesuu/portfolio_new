@@ -38,7 +38,7 @@ export function DossierHero({
   const isInteractive = isDesktop && !reducedMotion;
 
   // Progress and stage from custom hook
-  const { progress, progressValue, velocity, velocityValue, stage } = useDossierProgress(containerRef);
+  const { progress, progressValue, smoothedProgressValue, velocity, velocityValue, stage } = useDossierProgress(containerRef);
   
   // Pointer tracking for parallax
   const { pointer, bind } = usePointerParallax(containerRef, { 
@@ -129,10 +129,10 @@ export function DossierHero({
           )}
         </div>
 
-        {/* Book Layer - Video Sequence */}
+        {/* Book Layer - Frame Sequence */}
         <div className={styles.bookLayer}>
           <BookSequenceCanvas
-            progress={progressValue}
+            progress={smoothedProgressValue}
             stage={stage}
             isInteractive={isInteractive}
           />

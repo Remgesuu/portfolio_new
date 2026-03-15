@@ -200,12 +200,29 @@ html {
   max-width: 100vw;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  /* Hardcoded initial background to prevent flash before CSS variables load */
+  background-color: #0a0a0c;
 }
 
 body {
   /* overflow: visible to ensure body doesn't become a scroll container
      that breaks sticky positioning - sticky needs to attach to html scroll */
   overflow: visible;
+  /* Hardcoded initial background to prevent flash */
+  background-color: #0a0a0c;
+}
+
+/* Scroll blocking when preloader is active - CSS-based for immediate effect */
+html:has([data-preloader-active="true"]) {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+html:has([data-preloader-active="true"]) body {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 body {

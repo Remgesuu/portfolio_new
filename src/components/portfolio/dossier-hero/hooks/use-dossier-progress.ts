@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback, useMemo } from "react";
-import { useMotionValue, useVelocity } from "motion/react";
+import { useMotionValue, useVelocity, useSpring } from "motion/react";
 import { STAGES } from "../dossier-hero.config";
 import type { DossierStage, UseDossierProgressReturn } from "../dossier-hero.types";
 
@@ -17,7 +17,15 @@ export function useDossierProgress(
   const progress = useMotionValue(0);
   const velocity = useVelocity(progress);
   
+  // Smoothed progress for animations - adds inertial feel to book animation
+  const smoothedProgress = useSpring(progress, {
+    stiffness: 200,
+    damping: 30,
+    mass: 0.5,
+  });
+  
   const [progressValue, setProgressValue] = useState(0);
+  const [smoothedProgressValue, setSmoothedProgressValue] = useState(0);
   const [velocityValue, setVelocityValue] = useState(0);
   const rafRef = useRef<number>(0);
 
@@ -80,6 +88,14 @@ export function useDossierProgress(
     return unsubscribe;
   }, [velocity]);
 
+  // Track smoothed progress changes
+  useEffect(() => {
+    const unsubscribe = smoothedProgress.on("change", (v) => {
+      setSmoothedProgressValue(v);
+    });
+    return unsubscribe;
+  }, [smoothedProgress]);
+
   // Calculate current stage
   const stage = useMemo((): DossierStage => {
     const currentStage = STAGES.find(
@@ -104,6 +120,8 @@ export function useDossierProgress(
   return {
     progress,
     progressValue,
+    smoothedProgress,
+    smoothedProgressValue,
     velocity,
     velocityValue,
     stage,
