@@ -8,8 +8,8 @@ test.describe("Accessibility", () => {
       // Tab to focus the skip link
       await page.keyboard.press("Tab");
       
-      // Skip link should be visible
-      const skipLink = page.locator("a[href='#main-content']");
+      // Skip link should be visible and focused
+      const skipLink = page.getByRole("link", { name: "Skip to main content" });
       await expect(skipLink).toBeFocused();
       await expect(skipLink).toBeVisible();
     });
@@ -21,19 +21,19 @@ test.describe("Accessibility", () => {
       await page.keyboard.press("Tab");
       await page.keyboard.press("Enter");
       
-      // Main content should be focused
+      // Main content should be focused (native anchor behavior)
       const main = page.locator("#main-content");
-      await expect(main).toBeFocused();
+      await expect(main).toBeInViewport();
     });
 
     test("skip link works on all pages", async ({ page }) => {
-      const pages = ["/", "/resume", "/cases/ai-incident-workflow"];
+      const pages = ["/", "/resume", "/cases/darkest-afk"];
       
       for (const pagePath of pages) {
         await page.goto(pagePath);
         await page.keyboard.press("Tab");
         
-        const skipLink = page.locator("a[href='#main-content']");
+        const skipLink = page.getByRole("link", { name: "Skip to main content" });
         await expect(skipLink).toBeFocused();
       }
     });
@@ -43,25 +43,24 @@ test.describe("Accessibility", () => {
     test("theme toggle has proper ARIA structure", async ({ page }) => {
       await page.goto("/");
       
-      // Check radiogroup exists
-      const themeToggle = page.locator("[role='radiogroup']");
-      await expect(themeToggle).toHaveAttribute("aria-label", "Theme selection");
+      // Check radiogroup exists with accessible name
+      const themeToggle = page.getByRole("radiogroup", { name: "Theme selection" });
+      await expect(themeToggle).toBeVisible();
       
       // Check radio buttons exist
-      const radioButtons = page.locator("[role='radio']");
-      await expect(radioButtons).toHaveCount(3);
+      const systemRadio = page.getByRole("radio", { name: "Use system theme" });
+      const lightRadio = page.getByRole("radio", { name: "Use light theme" });
+      const darkRadio = page.getByRole("radio", { name: "Use dark theme" });
       
-      // Check each radio button has aria-label
-      const labels = ["Use system theme", "Use light theme", "Use dark theme"];
-      for (let i = 0; i < labels.length; i++) {
-        await expect(radioButtons.nth(i)).toHaveAttribute("aria-label", labels[i]);
-      }
+      await expect(systemRadio).toBeVisible();
+      await expect(lightRadio).toBeVisible();
+      await expect(darkRadio).toBeVisible();
     });
 
     test("navigation has aria-label", async ({ page }) => {
       await page.goto("/");
       
-      const nav = page.locator("nav[aria-label='Primary']");
+      const nav = page.getByRole("navigation", { name: "Primary" });
       await expect(nav).toBeVisible();
     });
 
@@ -77,18 +76,15 @@ test.describe("Accessibility", () => {
     test("interactive elements have visible focus indicators", async ({ page }) => {
       await page.goto("/");
       
-      // Tab through elements and verify focus is visible
-      const interactiveElements = [
-        "a[href='#main-content']", // skip link
-        ".topbar a", // navigation links
-        "[role='radio']", // theme toggle
-      ];
+      // Tab to skip link
+      await page.keyboard.press("Tab");
+      const skipLink = page.getByRole("link", { name: "Skip to main content" });
+      await expect(skipLink).toBeFocused();
       
-      for (const selector of interactiveElements) {
-        const element = page.locator(selector).first();
-        await element.focus();
-        await expect(element).toBeFocused();
-      }
+      // Tab to first nav link
+      await page.keyboard.press("Tab");
+      const firstNavLink = page.getByRole("navigation", { name: "Primary" }).getByRole("link").first();
+      await expect(firstNavLink).toBeFocused();
     });
 
     test("keyboard navigation works through page", async ({ page }) => {

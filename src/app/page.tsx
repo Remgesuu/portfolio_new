@@ -194,6 +194,15 @@ export default function Home() {
                   </div>
 
                   <h3 className={index === 0 ? styles.caseTitleFeatured : styles.caseTitle}>{caseStudy.title}</h3>
+                  
+                  <div className={styles.caseMetaDetails}>
+                    <span className={styles.caseMetaItem}>{caseStudy.meta.role}</span>
+                    <span className={styles.caseMetaSep} aria-hidden="true">/</span>
+                    <span className={styles.caseMetaItem}>{caseStudy.meta.environment}</span>
+                    <span className={styles.caseMetaSep} aria-hidden="true">/</span>
+                    <span className={styles.caseMetaItem}>{caseStudy.meta.artifactType}</span>
+                  </div>
+                  
                   <p className={styles.caseSummary}>{caseStudy.summary}</p>
                   {index === 0 && <p className={styles.caseOutcome}>{caseStudy.outcome}</p>}
 
