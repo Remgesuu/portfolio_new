@@ -80,13 +80,13 @@ export function Preloader({
       <motion.div
         key="preloader"
         className="fixed inset-0 z-[9999] flex items-center justify-center"
-          style={{ background: "var(--color-night-900)" }}
-          initial={{ opacity: 1 }}
-          exit={{ 
-            opacity: 0,
-            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-          }}
-        >
+        style={{ background: "var(--color-night-900)" }}
+        initial={{ opacity: 1 }}
+        exit={{ 
+          opacity: 0,
+          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+        }}
+      >
           {/* Background gradient pulse */}
           <motion.div
             className="absolute inset-0"
@@ -179,7 +179,6 @@ export function Preloader({
               ease: [0.22, 1, 0.36, 1],
             }}
           />
-        </motion.div>
       </motion.div>
     </AnimatePresence>
   );
