@@ -564,6 +564,25 @@
   max-width: 34rem;
 }
 
+.caseMetaDetails {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-disabled);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.caseMetaItem {
+  color: var(--text-secondary);
+}
+
+.caseMetaSep {
+  color: var(--border-default);
+}
+
 .caseTags,
 .buildStacks {
   display: flex;
@@ -969,7 +988,12 @@
   }
 
   .heroDescription {
-    display: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 1rem;
+    font-size: 0.95rem;
   }
 
   .heroPositioning {

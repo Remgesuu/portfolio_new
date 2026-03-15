@@ -74,7 +74,7 @@ export default async function CaseStudyPage({ params }: CasePageProps) {
       <Reveal variant="fade" duration={0.6}>
         <div className={styles.navBar}>
           <div className={styles.navLeft}>
-            <Link className={styles.backLink} href="/#cases">
+            <Link className={styles.backLink} href="/#cases" data-testid="back-link">
               Back to portfolio
             </Link>
             <Breadcrumbs
@@ -109,7 +109,7 @@ export default async function CaseStudyPage({ params }: CasePageProps) {
 
             <div className={styles.heroTags}>
               {caseStudy.tags.map((tag) => (
-                <span key={tag} className={styles.tag}>
+                <span key={tag} className={styles.tag} data-testid="case-tag">
                   {tag}
                 </span>
               ))}
@@ -126,6 +126,7 @@ export default async function CaseStudyPage({ params }: CasePageProps) {
               priority
               sizes="(max-width: 920px) 100vw, 50vw"
               className={styles.heroImage}
+              data-testid="hero-image"
             />
           </div>
         </Reveal>
@@ -166,8 +167,8 @@ export default async function CaseStudyPage({ params }: CasePageProps) {
               <p className={styles.sectionLabel}>Case metrics</p>
               <ul className={styles.metricList}>
                 {caseStudy.metrics.map((metric) => (
-                  <li key={metric.label} className={styles.metricItem}>
-                    <span className={styles.metricValue}>{metric.value}</span>
+                  <li key={metric.label} className={styles.metricItem} data-testid="metric-item">
+                    <span className={styles.metricValue} data-testid="metric-value">{metric.value}</span>
                     <span className={styles.metricName}>{metric.label}</span>
                   </li>
                 ))}
@@ -182,6 +183,7 @@ export default async function CaseStudyPage({ params }: CasePageProps) {
                     key={artifact.label}
                     className={styles.artifactLink}
                     href={artifact.href}
+                    data-testid="artifact-link"
                     {...getExternalLinkProps(artifact.href)}
                   >
                     {artifact.label}
@@ -198,21 +200,21 @@ export default async function CaseStudyPage({ params }: CasePageProps) {
           <p className={styles.sectionLabel}>Continue reading</p>
           <div className={styles.footerLinks}>
             {adjacent.previous ? (
-              <Link className={styles.footerLink} href={`/cases/${adjacent.previous.slug}`}>
+              <Link className={styles.footerLink} href={`/cases/${adjacent.previous.slug}`} data-testid="nav-previous">
                 Previous: {adjacent.previous.title}
               </Link>
             ) : (
-              <Link className={styles.footerLink} href="/">
+              <Link className={styles.footerLink} href="/" data-testid="nav-previous">
                 Return to homepage
               </Link>
             )}
 
             {adjacent.next ? (
-              <Link className={styles.footerLink} href={`/cases/${adjacent.next.slug}`}>
+              <Link className={styles.footerLink} href={`/cases/${adjacent.next.slug}`} data-testid="nav-next">
                 Next: {adjacent.next.title}
               </Link>
             ) : (
-              <Link className={styles.footerLink} href="/#contact">
+              <Link className={styles.footerLink} href="/#contact" data-testid="nav-next">
                 Contact and positioning
               </Link>
             )}

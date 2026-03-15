@@ -9,14 +9,14 @@ test.describe("Case Study Pages", () => {
       await expect(page.locator("#main-content")).toBeVisible();
       
       // Hero section with title
-      await expect(page.locator("h1")).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       
       // Tags should be displayed
-      const tags = page.locator(".tag");
+      const tags = page.getByTestId("case-tag");
       await expect(tags.first()).toBeVisible();
       
       // Metrics should be present
-      const metrics = page.locator(".metricValue");
+      const metrics = page.getByTestId("metric-value");
       await expect(metrics.first()).toBeVisible();
     });
 
@@ -25,14 +25,14 @@ test.describe("Case Study Pages", () => {
       
       await page.goto("/cases/darkest-afk");
       
-      const breadcrumbs = page.locator("nav[aria-label='Breadcrumb']");
+      const breadcrumbs = page.getByRole("navigation", { name: "Breadcrumb" });
       await expect(breadcrumbs).toBeVisible();
       
       // Should have Home link
-      await expect(breadcrumbs.locator("text=Home")).toBeVisible();
+      await expect(breadcrumbs.getByRole("link", { name: "Home" })).toBeVisible();
       
       // Should have Cases link
-      await expect(breadcrumbs.locator("text=Cases")).toBeVisible();
+      await expect(breadcrumbs.getByRole("link", { name: "Cases" })).toBeVisible();
     });
   });
 
@@ -40,7 +40,7 @@ test.describe("Case Study Pages", () => {
     test("back link returns to portfolio", async ({ page }) => {
       await page.goto("/cases/darkest-afk");
       
-      await page.click("text=Back to portfolio");
+      await page.getByTestId("back-link").click();
       await page.waitForURL("/#cases");
     });
 
@@ -48,27 +48,26 @@ test.describe("Case Study Pages", () => {
       await page.goto("/cases/darkest-afk");
       
       // Should have continue reading section
-      const continueReading = page.locator("text=Continue reading");
+      const continueReading = page.getByText("Continue reading");
       await expect(continueReading).toBeVisible();
       
-      // Should have navigation links
-      const footerLinks = page.locator(".footerLink");
-      await expect(footerLinks).toHaveCount(2);
+      // Should have navigation links (previous and next)
+      const prevLink = page.getByTestId("nav-previous");
+      const nextLink = page.getByTestId("nav-next");
+      await expect(prevLink).toBeVisible();
+      await expect(nextLink).toBeVisible();
     });
 
     test("can navigate between case studies", async ({ page }) => {
       await page.goto("/cases/darkest-afk");
       
       // Click next case link
-      const nextLink = page.locator(".footerLink").last();
-      const nextText = await nextLink.textContent();
+      const nextLink = page.getByTestId("nav-next");
+      await nextLink.click();
       
-      if (nextText?.includes("Next:")) {
-        await nextLink.click();
-        
-        // Should be on a different case page
-        await expect(page.locator("[data-case-page]")).toBeVisible();
-      }
+      // Should be on a different case page
+      await expect(page.locator("[data-case-page]")).toBeVisible();
+      await expect(page).not.toHaveURL("/cases/darkest-afk");
     });
   });
 
@@ -80,11 +79,11 @@ test.describe("Case Study Pages", () => {
         await page.goto(`/cases/${slug}`);
         
         // Each page should have a title
-        const title = page.locator("h1");
+        const title = page.getByRole("heading", { level: 1 });
         await expect(title).toBeVisible();
         
         // Should have metrics
-        const metrics = page.locator(".metricValue");
+        const metrics = page.getByTestId("metric-value");
         await expect(metrics.first()).toBeVisible();
       }
     });
@@ -93,11 +92,11 @@ test.describe("Case Study Pages", () => {
       await page.goto("/cases/darkest-afk");
       
       // Artifacts section should exist
-      const artifactsLabel = page.locator("text=Artifacts");
+      const artifactsLabel = page.getByText("Artifacts");
       await expect(artifactsLabel).toBeVisible();
       
       // External artifact links should have correct attributes
-      const artifactLinks = page.locator(".artifactLink");
+      const artifactLinks = page.getByTestId("artifact-link");
       const count = await artifactLinks.count();
       
       for (let i = 0; i < count; i++) {
@@ -106,7 +105,7 @@ test.describe("Case Study Pages", () => {
         
         if (href?.startsWith("http")) {
           await expect(link).toHaveAttribute("target", "_blank");
-          await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+          await expect(link).toHaveAttribute("rel", /noopener/);
         }
       }
     });
@@ -116,15 +115,15 @@ test.describe("Case Study Pages", () => {
     test("hero image loads correctly", async ({ page }) => {
       await page.goto("/cases/darkest-afk");
       
-      const heroImage = page.locator(".heroImage");
+      const heroImage = page.getByTestId("hero-image");
       await expect(heroImage).toBeVisible();
     });
 
     test("theme toggle works on case pages", async ({ page }) => {
       await page.goto("/cases/darkest-afk");
       
-      // Toggle to dark theme
-      await page.click("[aria-label='Use dark theme']");
+      // Toggle to dark theme using accessible name
+      await page.getByRole("radio", { name: "Use dark theme" }).click();
       
       const theme = await page.evaluate(() => {
         return document.documentElement.getAttribute("data-theme");

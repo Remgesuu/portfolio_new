@@ -86,6 +86,12 @@ export type CaseStudySection = {
   items: string[];
 };
 
+export type CaseStudyMeta = {
+  role: string;
+  environment: string;
+  artifactType: string;
+};
+
 export type CaseStudy = {
   slug: string;
   number: string;
@@ -95,6 +101,7 @@ export type CaseStudy = {
   outcome: string;
   previewImage: string;
   tags: string[];
+  meta: CaseStudyMeta;
   metrics: CaseStudyMetric[];
   sections: CaseStudySection[];
   artifacts: ArtifactLink[];
@@ -189,6 +196,11 @@ const caseStudies: CaseStudy[] = [
       "Bilingual operator UX",
       "Standardized package prep",
     ],
+    meta: {
+      role: "Support Ops Lead",
+      environment: "Mobile F2P, Heapp Games",
+      artifactType: "Operator tool",
+    },
     metrics: [
       { label: "Indexed items", value: "112+" },
       { label: "Operator UX", value: "Bilingual" },
@@ -265,6 +277,11 @@ const caseStudies: CaseStudy[] = [
       "Raw complaints became a concise escalation artifact with priorities, repeat themes, and less duplication across teams.",
     previewImage: "/images/cases/project-dig-dig-die.svg",
     tags: ["23 structured items", "6 critical issues", "3 repeat themes"],
+    meta: {
+      role: "Support Ops Lead",
+      environment: "Steam Early Access, Heapp Games",
+      artifactType: "Escalation memo",
+    },
     metrics: [
       { label: "Structured items", value: "23" },
       { label: "Critical issues", value: "6" },
@@ -345,6 +362,11 @@ const caseStudies: CaseStudy[] = [
       "Level 4-5 complexity spike",
       "Short-loop hypotheses",
     ],
+    meta: {
+      role: "Support Ops Lead",
+      environment: "Mobile F2P, Heapp Games",
+      artifactType: "Analysis brief",
+    },
     metrics: [
       { label: "Friction signal", value: "6-8h" },
       { label: "Complexity spike", value: "Level 4-5" },
@@ -601,7 +623,7 @@ export const siteContent: SiteContent = {
     email: "grigorii584@gmail.com",
     phone: "+7-988-492-9938",
     githubUrl: "https://github.com/CodeAvd",
-    portfolioRepoUrl: "https://github.com/CodeAvd/portfolio_v2",
+    portfolioRepoUrl: "https://github.com/Remgesuu/portfolio_new",
     legacyPortfolioUrl: "https://codeavd.github.io/Portfolio/",
     resumeUrl: "/resume",
   },
@@ -614,15 +636,15 @@ export const siteContent: SiteContent = {
   description:
     "English-first portfolio and resume for an AI-enabled support systems operator working across technical support, escalation, workflow automation, and product-facing signal packaging.",
   nav: [
-    { label: "Work", href: "#cases" },
-    { label: "Systems", href: "#builds" },
-    { label: "Fit", href: "#strengths" },
+    { label: "Case Studies", href: "#cases" },
+    { label: "Projects", href: "#builds" },
+    { label: "Role Fit", href: "#strengths" },
     { label: "Resume", href: "/resume" },
     { label: "Contact", href: "#contact" },
   ],
   hero: {
     eyebrow: "( SUPPORT-FIRST, SYSTEMS-SHAPED )",
-    title: "Support systems that scale.",
+    title: "Technical Support Specialist.",
     description:
       "Support-first by training, systems-first in execution. I reduce repeated ticket noise, build operator tooling, and package customer signals into artifacts product, QA, and ops teams can actually use.",
     positioning:
@@ -636,10 +658,10 @@ export const siteContent: SiteContent = {
     note:
       "Public-safe packaging only. The site keeps shipped interfaces, operating logic, and proof metrics while leaving out internal-only workflow detail.",
     signals: [
-      { value: "45%", label: "lower repetitive tier-1 volume" },
-      { value: "35%", label: "faster first response time" },
-      { value: "70%", label: "less manual operational load" },
-      { value: "112+", label: "indexed support items in one tool" },
+      { value: "45%", label: "lower repetitive tier-1 volume (Mover Bridge, 2022-23)" },
+      { value: "35%", label: "faster first response time (Mover Bridge, 2022-23)" },
+      { value: "70%", label: "less manual operational load (Mover Bridge, 2022-23)" },
+      { value: "112+", label: "indexed support items (Heapp Games, 2024)" },
     ],
   },
   cases: {
@@ -704,8 +726,8 @@ export const siteContent: SiteContent = {
       },
       {
         label: "Portfolio source",
-        value: "github.com/CodeAvd/portfolio_v2",
-        href: "https://github.com/CodeAvd/portfolio_v2",
+        value: "github.com/Remgesuu/portfolio_new",
+        href: "https://github.com/Remgesuu/portfolio_new",
       },
       {
         label: "Location",
