@@ -240,7 +240,7 @@ export function DossierHero({
       <motion.div 
         className="sticky top-0 left-0 h-screen w-screen overflow-hidden"
         style={{ 
-          backgroundColor: isMounted ? bgColor : INITIAL_BG,
+          backgroundColor: bgColor,
           zIndex: 10,
         }}
       >
