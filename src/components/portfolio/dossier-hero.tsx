@@ -5,6 +5,15 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "mot
 import { CTAButton } from "./cta-button";
 import { siteContent } from "@/content/site-content";
 
+// Studio white to dark transition colors
+const COLORS = {
+  studioWhite: "#f8f6f3",
+  warmGray: "#e8e4df", 
+  midTone: "#9a958d",
+  charcoal: "#2a2926",
+  nearBlack: "#0a0a0c",
+};
+
 // Stage configuration with labels and thoughts
 const STAGES = [
   {
@@ -85,6 +94,31 @@ export function DossierHero({
   const bookY = useTransform(scrollYProgress, [0, 0.05, 0.3, 0.8, 1], [40, 0, 0, 0, 0]);
   const bookScale = useTransform(scrollYProgress, [0, 0.05, 0.3, 0.55, 0.8, 1], [0.92, 1, 1, 1.03, 1, 0.98]);
   const bookOpacity = useTransform(scrollYProgress, [0, 0.03], [0.7, 1]);
+
+  // Background color transition: studio-white -> dark
+  // 0-70%: pure studio white
+  // 70-90%: transition to warm gray then charcoal
+  // 90-100%: settle into near-black
+  const bgColor = useTransform(
+    scrollYProgress,
+    [0, 0.7, 0.85, 0.95, 1],
+    [COLORS.studioWhite, COLORS.studioWhite, COLORS.warmGray, COLORS.charcoal, COLORS.nearBlack]
+  );
+
+  // Vignette/darkening from edges - appears in final 30%
+  const vignetteOpacity = useTransform(scrollYProgress, [0.7, 0.9, 1], [0, 0.4, 0.7]);
+  
+  // Text color transition for readability
+  const textPrimary = useTransform(
+    scrollYProgress,
+    [0, 0.7, 0.9, 1],
+    ["#0a0a0c", "#0a0a0c", "#e8e4df", "#f8f6f3"]
+  );
+  const textSecondary = useTransform(
+    scrollYProgress,
+    [0, 0.7, 0.9, 1],
+    ["#4a4a52", "#4a4a52", "#9a958d", "#a0a5ab"]
+  );
 
   // Smooth springs for book motion
   const smoothBookY = useSpring(bookY, { stiffness: 120, damping: 25 });
@@ -193,8 +227,22 @@ export function DossierHero({
       }}
       data-scroll-sequence
     >
-      {/* Sticky container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* Sticky container with animated background */}
+      <motion.div 
+        className="sticky top-0 h-screen w-full overflow-hidden"
+        style={{ backgroundColor: bgColor }}
+      >
+        {/* Atmospheric vignette - darkens from edges */}
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            opacity: vignetteOpacity,
+            background: `
+              radial-gradient(ellipse 80% 60% at 50% 50%, transparent 30%, ${COLORS.nearBlack} 100%),
+              linear-gradient(to top, ${COLORS.nearBlack} 0%, transparent 40%)
+            `,
+          }}
+        />
         
         {/* Corner marks - editorial crop marks */}
         <CornerMarks />
@@ -212,7 +260,8 @@ export function DossierHero({
                 {/* Headline with masked reveal */}
                 <div className="mb-4 overflow-hidden">
                   <motion.p 
-                    className="text-[var(--text-secondary)] font-mono text-xs uppercase tracking-widest mb-3"
+                    className="font-mono text-xs uppercase tracking-widest mb-3"
+                    style={{ color: textSecondary }}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: headlineRevealed ? 1 : 0, y: headlineRevealed ? 0 : 10 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
@@ -220,7 +269,10 @@ export function DossierHero({
                     {hero.eyebrow}
                   </motion.p>
                   
-                  <h1 className="text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-[1.1] text-[var(--text-primary)]">
+                  <motion.h1 
+                    className="text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-[1.1]"
+                    style={{ color: textPrimary }}
+                  >
                     {headlineWords.map((word, i) => (
                       <span key={i} className="inline-block overflow-hidden mr-[0.3em]">
                         <motion.span
@@ -241,12 +293,13 @@ export function DossierHero({
                         </motion.span>
                       </span>
                     ))}
-                  </h1>
+                  </motion.h1>
                 </div>
 
                 {/* Support text */}
                 <motion.p 
-                  className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 max-w-[320px]"
+                  className="text-sm leading-relaxed mb-6 max-w-[320px]"
+                  style={{ color: textSecondary }}
                   initial={{ opacity: 0, filter: "blur(8px)" }}
                   animate={{ 
                     opacity: headlineRevealed ? 1 : 0, 
@@ -276,15 +329,20 @@ export function DossierHero({
                 <AnimatePresence>
                   {currentStage === 0 && headlineRevealed && (
                     <motion.div 
-                      className="mt-8 flex items-center gap-2 text-xs text-[var(--text-disabled)]"
+                      className="mt-8 flex items-center gap-2 text-xs"
+                      style={{ color: textSecondary }}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
+                      animate={{ opacity: 0.6 }}
                       exit={{ opacity: 0 }}
                       transition={{ delay: 1.2 }}
                     >
-                      <span className="inline-block w-4 h-6 border border-[var(--border-subtle)] rounded-full relative">
+                      <span 
+                        className="inline-block w-4 h-6 rounded-full relative"
+                        style={{ border: "1px solid currentColor" }}
+                      >
                         <motion.span 
-                          className="absolute left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--text-disabled)] rounded-full"
+                          className="absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+                          style={{ backgroundColor: "currentColor" }}
                           animate={{ y: [2, 14, 2] }}
                           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                         />
@@ -295,60 +353,56 @@ export function DossierHero({
                 </AnimatePresence>
               </div>
 
-              {/* CENTER: Book/Video */}
+              {/* CENTER: Book/Video - seamless with studio environment */}
               <div className="relative order-1 lg:order-2 flex justify-center">
                 <motion.div 
-                  className="relative w-full max-w-[500px] aspect-[4/3]"
+                  className="relative w-full max-w-[560px] aspect-[4/3]"
                   style={{
                     y: smoothBookY,
                     scale: smoothBookScale,
                     opacity: bookOpacity,
                   }}
                 >
-                  {/* Video container */}
-                  <div 
-                    className="relative w-full h-full rounded-lg overflow-hidden"
-                    style={{
-                      boxShadow: "0 25px 80px -20px rgba(0,0,0,0.4), 0 10px 30px -10px rgba(0,0,0,0.3)",
-                    }}
-                  >
-                    {isInteractive ? (
-                      <video
-                        ref={videoRef}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        src="/scroll-sequences/dossier/book-sequence.mp4"
-                        playsInline
-                        muted
-                        preload="auto"
-                        style={{ 
-                          opacity: videoReady ? 1 : 0,
-                          transition: "opacity 0.4s ease"
-                        }}
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#1a1a1f] to-[#0f0f12]">
-                        <div className="text-center p-6">
-                          <div className="w-16 h-20 mx-auto mb-3 rounded bg-[var(--border-subtle)] opacity-50" />
-                          <p className="text-[var(--text-disabled)] text-xs">
-                            Desktop for full experience
-                          </p>
-                        </div>
+                  {/* Video - no container card, blends with studio white */}
+                  {isInteractive ? (
+                    <video
+                      ref={videoRef}
+                      className="w-full h-full object-contain"
+                      src="/scroll-sequences/dossier/book-sequence.mp4"
+                      playsInline
+                      muted
+                      preload="auto"
+                      style={{ 
+                        opacity: videoReady ? 1 : 0,
+                        transition: "opacity 0.4s ease",
+                        filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.15))",
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-center p-6">
+                        <div className="w-20 h-24 mx-auto mb-4 rounded bg-[#e8e4df] shadow-lg" />
+                        <p className="text-[#6a6a78] text-xs">
+                          Desktop for full experience
+                        </p>
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    {/* Loading spinner */}
-                    {isInteractive && !videoReady && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-[var(--bg-secondary)]">
-                        <div className="w-6 h-6 border-2 border-[var(--border-default)] border-t-[var(--accent-primary)] rounded-full animate-spin" />
-                      </div>
-                    )}
-                  </div>
+                  {/* Loading state */}
+                  {isInteractive && !videoReady && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-6 h-6 border-2 border-[#e8e4df] border-t-[#9a958d] rounded-full animate-spin" />
+                    </div>
+                  )}
 
-                  {/* Subtle ambient glow behind book */}
+                  {/* Subtle contact shadow on "floor" */}
                   <div 
-                    className="absolute -inset-8 -z-10 rounded-3xl opacity-30 blur-2xl"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-8 -z-10"
                     style={{
-                      background: "radial-gradient(ellipse at center, var(--color-white-10) 0%, transparent 70%)",
+                      background: "radial-gradient(ellipse at center, rgba(0,0,0,0.12) 0%, transparent 70%)",
+                      filter: "blur(8px)",
+                      transform: "translateX(-50%) translateY(50%) scaleY(0.3)",
                     }}
                   />
                 </motion.div>
@@ -374,9 +428,12 @@ export function DossierHero({
                         >
                           {currentStageData.label}
                         </p>
-                        <p className="text-[var(--text-secondary)] text-sm italic max-w-[200px] lg:ml-auto">
+                        <motion.p 
+                          className="text-sm italic max-w-[200px] lg:ml-auto"
+                          style={{ color: textSecondary }}
+                        >
                           "{currentStageData.thought}"
-                        </p>
+                        </motion.p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -433,12 +490,18 @@ export function DossierHero({
                             transition={{ delay: 0.3 + i * 0.1 }}
                             className="text-right"
                           >
-                            <span className="text-[var(--text-primary)] font-semibold text-lg">
+                            <motion.span 
+                              className="font-semibold text-lg block"
+                              style={{ color: textPrimary }}
+                            >
                               {signal.value}
-                            </span>
-                            <span className="text-[var(--text-disabled)] text-xs block max-w-[180px] ml-auto">
+                            </motion.span>
+                            <motion.span 
+                              className="text-xs block max-w-[180px] ml-auto"
+                              style={{ color: textSecondary }}
+                            >
                               {signal.label}
-                            </span>
+                            </motion.span>
                           </motion.div>
                         ))}
                       </motion.div>
@@ -449,7 +512,7 @@ export function DossierHero({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
