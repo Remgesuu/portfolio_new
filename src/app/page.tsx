@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
-import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 import { CTAButton } from "@/components/portfolio/cta-button";
 import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
 import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
@@ -30,15 +29,14 @@ export default function Home() {
 
   return (
     <main id="main-content" tabIndex={-1} className={styles.page}>
-      {/* Topbar with staged entrance */}
+      {/* Minimal floating nav pill - kons.fyi style */}
       <Reveal variant="fade" duration={0.6}>
         <header className={styles.topbar}>
-          <Link className={styles.brand} href="/">
-            <span className={styles.brandName}>{meta.name}</span>
-            <span className={styles.brandRole}>{meta.role}</span>
+          <Link className={styles.homeButton} href="/" aria-label="Home">
+            <span className={styles.homeIcon}>G</span>
           </Link>
 
-          <nav className={styles.nav} aria-label="Primary">
+          <nav className={styles.navPill} aria-label="Primary">
             {nav.map((item) =>
               isInternalRouteHref(item.href) ? (
                 <Link key={item.href} className={styles.navLink} href={item.href}>
@@ -51,12 +49,6 @@ export default function Home() {
               ),
             )}
           </nav>
-
-          <ThemeToggle />
-
-          <a className={styles.contactButton} href={`mailto:${meta.email}`}>
-            Email
-          </a>
         </header>
       </Reveal>
 

@@ -3,83 +3,108 @@
   width: 100%;
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: 1.5rem var(--page-padding) 4rem;
+  padding: 4.5rem var(--page-padding) 4rem;
   min-height: 100vh;
 }
 
 /* ============================================
-   Topbar - Enhanced blur with border glow
+   Topbar - Minimal floating pill (kons.fyi style)
    ============================================ */
 .topbar {
-  position: sticky;
+  position: fixed;
   top: 1rem;
-  z-index: 20;
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
   align-items: center;
-  gap: 1.4rem;
-  padding: 0.85rem 1.25rem;
-  border: 1px solid oklch(92% 0.01 85 / 0.5);
+  gap: 0.35rem;
+  padding: 0.35rem;
   border-radius: 999px;
-  background: oklch(99% 0.005 85 / 0.85);
-  backdrop-filter: blur(24px) saturate(1.2);
-  box-shadow:
-    0 4px 24px oklch(50% 0.02 70 / 0.06),
-    0 1px 3px oklch(50% 0.02 70 / 0.04),
-    inset 0 1px 0 oklch(100% 0 0 / 0.7);
-  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 2px 8px oklch(0% 0 0 / 0.06),
+    0 0 0 1px oklch(0% 0 0 / 0.02);
+  transition: 
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .topbar:hover {
-  border-color: var(--border-glow);
+  border-color: var(--border-default);
+  box-shadow: 
+    0 4px 16px oklch(0% 0 0 / 0.1),
+    0 0 0 1px oklch(0% 0 0 / 0.04);
 }
 
-.brand {
-  display: grid;
-  gap: 0.1rem;
-}
-
-.brandName {
-  color: var(--text-primary);
-  font-size: 0.96rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.brandRole {
-  max-width: 30rem;
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  line-height: 1.35;
-}
-
-.nav {
+.homeButton {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1.35rem;
-  flex-wrap: wrap;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--text-primary);
+  color: var(--text-inverse);
+  transition: transform var(--transition-base);
 }
 
-.navLink,
-.contactButton,
+.homeButton:hover {
+  transform: scale(1.06);
+}
+
+.homeIcon {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.navPill {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: var(--bg-surface);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: 
+    color var(--transition-base),
+    background var(--transition-base);
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+.navLink:focus-visible {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+}
+
 .buildLink,
 .contactValue {
   position: relative;
   transition: color var(--transition-base);
 }
 
-.navLink,
-.contactButton {
-  color: var(--text-secondary);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.navLink::after,
-.contactButton::after,
 .buildLink::after,
 .contactValue::after {
   content: "";
@@ -94,30 +119,20 @@
   transition: transform var(--transition-base);
 }
 
-.navLink:hover,
-.contactButton:hover,
 .buildLink:hover,
 .contactValue:hover,
-.navLink:focus-visible,
-.contactButton:focus-visible,
 .buildLink:focus-visible,
 .contactValue:focus-visible {
   color: var(--text-primary);
 }
 
-.navLink:hover::after,
-.contactButton:hover::after,
 .buildLink:hover::after,
 .contactValue:hover::after,
-.navLink:focus-visible::after,
-.contactButton:focus-visible::after,
 .buildLink:focus-visible::after,
 .contactValue:focus-visible::after {
   transform: scaleX(1);
 }
 
-.navLink:focus-visible,
-.contactButton:focus-visible,
 .buildLink:focus-visible,
 .contactValue:focus-visible,
 .profileGithub:focus-visible {
@@ -923,26 +938,27 @@
 
 @media (max-width: 900px) {
   .topbar {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    grid-template-areas:
-      "brand toggle contact"
-      "nav nav nav";
-    row-gap: 0.85rem;
+    top: 0.75rem;
+    gap: 0.25rem;
+    padding: 0.25rem;
   }
 
-  .brand {
-    grid-area: brand;
+  .homeButton {
+    width: 2rem;
+    height: 2rem;
   }
 
-  .nav {
-    grid-area: nav;
-    justify-content: flex-start;
+  .homeIcon {
+    font-size: 0.75rem;
   }
 
-  .contactButton {
-    grid-area: contact;
-    align-self: start;
-    justify-self: end;
+  .navPill {
+    padding: 0.2rem;
+  }
+
+  .navLink {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.62rem;
   }
 
   .profileStage {
@@ -976,18 +992,39 @@
   }
 
   .topbar {
-    position: static;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "brand toggle"
-      "nav contact";
-    gap: 0.55rem 0.85rem;
-    padding: 0.75rem 0.85rem;
-    border-radius: 1.25rem;
+    position: fixed;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: calc(100vw - 1rem);
+    gap: 0.2rem;
+    padding: 0.2rem;
   }
 
-  .contactButton {
-    justify-self: start;
+  .homeButton {
+    width: 1.85rem;
+    height: 1.85rem;
+    flex-shrink: 0;
+  }
+
+  .homeIcon {
+    font-size: 0.7rem;
+  }
+
+  .navPill {
+    padding: 0.15rem;
+    gap: 0.1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .navPill::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navLink {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.58rem;
   }
 
   .strengthsGrid,
@@ -1005,38 +1042,36 @@
   }
 
   .brandName {
-    font-size: 0.84rem;
+    font-size: 0.65rem;
   }
 
   .brandRole {
-    display: none;
+    font-size: 0.6rem;
+    line-height: 1.3;
+    white-space: normal;
+    max-width: 100%;
   }
 
   .nav {
     gap: 0.5rem;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    width: 100%;
   }
 
-  .navLink,
-  .contactButton {
+  .navLink {
     display: inline-flex;
     align-items: center;
-    min-height: 3rem;
-    padding: 0.65rem 1rem;
-    font-size: 0.72rem;
+    min-height: 2.25rem;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.62rem;
     border-radius: var(--radius-sm);
     background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
   }
 
-  .navLink:hover,
-  .contactButton:hover {
+  .navLink:hover {
     background: var(--bg-elevated);
-  }
-
-  .navLink::after,
-  .contactButton::after {
-    display: none;
+    border-color: var(--border-default);
   }
 
   .buildLink,

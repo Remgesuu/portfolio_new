@@ -617,7 +617,7 @@ const resumeContent: ResumeContent = {
 
 export const siteContent: SiteContent = {
   meta: {
-    name: "Grigorii",
+    name: "nb cnhjxrb - Grigorii",
     role: "AI-enabled support systems operator for technical support, escalation, and workflow automation",
     location: "Russia | Remote",
     email: "grigorii584@gmail.com",
