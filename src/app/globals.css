@@ -278,12 +278,20 @@ body {
   transition: background-color var(--transition-slow), color var(--transition-base);
 }
 
-/* Ambient background gradients */
+/* Ambient background gradients - Smooth light theme with oklch for perceptual uniformity */
 [data-theme="light"] body {
   background:
-    radial-gradient(circle at top left, var(--gradient-ambient-teal), transparent 26%),
-    radial-gradient(circle at 78% 18%, var(--gradient-ambient-coral), transparent 28%),
-    linear-gradient(180deg, var(--color-warm-50), var(--color-warm-200));
+    radial-gradient(ellipse 120% 80% at 15% 10%, oklch(95% 0.025 180 / 0.18), transparent 50%),
+    radial-gradient(ellipse 100% 70% at 85% 15%, oklch(93% 0.03 55 / 0.2), transparent 45%),
+    radial-gradient(ellipse 140% 60% at 50% 100%, oklch(96% 0.015 85 / 0.15), transparent 60%),
+    linear-gradient(
+      175deg,
+      oklch(98.5% 0.006 85) 0%,
+      oklch(97.8% 0.01 80) 25%,
+      oklch(97% 0.012 75) 50%,
+      oklch(96.2% 0.015 70) 75%,
+      oklch(95.5% 0.018 65) 100%
+    );
 }
 
 [data-theme="dark"] body {
@@ -293,29 +301,27 @@ body {
     linear-gradient(180deg, var(--color-graphite-400), var(--color-graphite-500));
 }
 
-/* Premium grain texture overlay */
+/* Subtle grain texture overlay - reduced for cleaner look */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: var(--grain-opacity);
-  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.18;
+  mix-blend-mode: overlay;
   z-index: 9999;
 }
 
-/* Grid pattern subtle overlay */
+/* Subtle dot pattern for refined texture */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(var(--border-subtle) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
-  background-size: 4px 4px;
-  opacity: 0.3;
+  background-image: radial-gradient(circle at center, var(--border-subtle) 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+  opacity: 0.4;
   z-index: -1;
 }
 

@@ -5,7 +5,9 @@ import { AmbientHero } from "@/components/portfolio/ambient-hero";
 import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 import { CTAButton } from "@/components/portfolio/cta-button";
-import { FloatingContact } from "@/components/portfolio/floating-contact";
+import { FloatingThemeToggle } from "@/components/portfolio/floating-theme-toggle";
+import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
+import { Typewriter } from "@/components/portfolio/typewriter";
 import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
 import { siteContent } from "@/content/site-content";
 import { proofLevelLabel } from "@/lib/content-utils";
@@ -62,7 +64,19 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
           <Reveal variant="fade" delay={0.1} duration={0.7}>
-            <p className={styles.eyebrow}>{hero.eyebrow}</p>
+            <p className={styles.eyebrow}>
+              <Typewriter
+                phrases={[
+                  "Support Operations",
+                  "AI Automation",
+                  "Workflow Systems",
+                  "Remote-Ready",
+                ]}
+                typingSpeed={70}
+                deletingSpeed={40}
+                pauseDuration={2500}
+              />
+            </p>
           </Reveal>
 
           <Reveal variant="fade" delay={0.15} duration={0.7}>
@@ -105,6 +119,12 @@ export default function Home() {
                 ),
               )}
             </div>
+          </Reveal>
+
+          <Reveal variant="fade-up" delay={0.55} duration={0.6}>
+            <a className={styles.heroEmail} href={`mailto:${meta.email}`}>
+              {meta.email}
+            </a>
           </Reveal>
         </div>
 
@@ -359,11 +379,9 @@ export default function Home() {
         <p>{meta.location}</p>
       </footer>
 
-      {/* Floating contact widget */}
-      <FloatingContact 
-        email={meta.email}
-        showAfterScroll={600}
-      />
+      {/* Floating UI elements */}
+      <ScrollToTop showAfterScroll={500} />
+      <FloatingThemeToggle />
     </main>
   );
 }

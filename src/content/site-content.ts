@@ -185,9 +185,9 @@ const caseStudies: CaseStudy[] = [
     slug: "darkest-afk",
     number: "01",
     eyebrow: "Support systems design",
-    title: "Darkest AFK compensation workflow",
+    title: "Darkest AFK: 112+ items indexed, recovery time cut",
     summary:
-      "Built a repeatable operator-facing catalog for faster recovery packages and cleaner internal handling.",
+      "Faster recovery packages and cleaner internal handling through a repeatable operator-facing catalog with 112+ indexed items.",
     outcome:
       "A support-heavy recovery flow became faster, more consistent, and easier to repeat without manual lookup noise.",
     previewImage: "/images/cases/project-darkest-afk.svg",
@@ -270,9 +270,9 @@ const caseStudies: CaseStudy[] = [
     slug: "dig-dig-die",
     number: "02",
     eyebrow: "Feedback intelligence",
-    title: "Dig Dig Die escalation-ready feedback view",
+    title: "Dig Dig Die: 23 issues structured from community noise",
     summary:
-      "Structured noisy community feedback into a shared view for support, product, and execution conversations.",
+      "Clearer escalation path from raw complaints to 23 structured priorities, 6 critical issues, and less duplication across teams.",
     outcome:
       "Raw complaints became a concise escalation artifact with priorities, repeat themes, and less duplication across teams.",
     previewImage: "/images/cases/project-dig-dig-die.svg",
@@ -351,9 +351,9 @@ const caseStudies: CaseStudy[] = [
     slug: "vacation-cafe",
     number: "03",
     eyebrow: "Retention and friction analysis",
-    title: "Vacation Cafe player-friction analysis",
+    title: "Vacation Cafe: Retention hypotheses from player friction",
     summary:
-      "Turned fragmented player friction signals into retention-oriented hypotheses a product team could review quickly.",
+      "Fragmented player pain turned into retention-oriented hypotheses and short-loop experiments a product team could review quickly.",
     outcome:
       "Community pain points became named patterns, clearer language, and short-loop experiments instead of scattered anecdotes.",
     previewImage: "/images/cases/project-vacation-cafe.svg",
@@ -499,7 +499,7 @@ const resumeSkillGroups: SkillGroup[] = [
       "LLM orchestration",
     ],
     note:
-      "Technical stack claims are grounded in shipped side-project work and automation-heavy support systems, not inflated senior-engineer posturing.",
+      "Technical stack claims are grounded in shipped side-project work and automation-heavy support systems.",
   },
   {
     title: "Working knowledge",
@@ -638,15 +638,15 @@ export const siteContent: SiteContent = {
   nav: [
     { label: "Case Studies", href: "#cases" },
     { label: "Projects", href: "#builds" },
-    { label: "Role Fit", href: "#strengths" },
+    { label: "Strengths", href: "#strengths" },
     { label: "Resume", href: "/resume" },
     { label: "Contact", href: "#contact" },
   ],
   hero: {
-    eyebrow: "( SUPPORT-FIRST, SYSTEMS-SHAPED )",
-    title: "Technical Support Specialist.",
+    eyebrow: "Support Operations | AI Automation | Remote-Ready",
+    title: "Support Systems Operator.",
     description:
-      "Support-first by training, systems-first in execution. I reduce repeated ticket noise, build operator tooling, and package customer signals into artifacts product, QA, and ops teams can actually use.",
+      "I reduce repeated ticket noise, build operator tooling, and package customer signals into artifacts product, QA, and ops teams can use.",
     positioning:
       "Support Operations / Technical Support Specialist with AI automation and workflow systems leverage. Remote-ready.",
     ctas: [
@@ -678,10 +678,10 @@ export const siteContent: SiteContent = {
     items: technicalProofs,
   },
   strengths: {
-    eyebrow: "( ROLE FIT )",
-    title: "The positioning is broader now, but the evidence stays disciplined.",
+    eyebrow: "( STRENGTHS )",
+    title: "Three reasons I'm the hire.",
     intro:
-      "Support-first credibility remains the foundation. The wider operator read comes from shipped systems and better packaging, not from inflated titles.",
+      "Support-first credibility as the foundation. Systems leverage and shipped proof as the differentiator.",
     items: [
       {
         eyebrow: "Support systems",
@@ -705,9 +705,9 @@ export const siteContent: SiteContent = {
   },
   contact: {
     eyebrow: "( CONTACT )",
-    title: "If you need support credibility with stronger systems leverage, we should talk.",
+    title: "Looking for support credibility with systems leverage? Let's talk.",
     intro:
-      "Open to remote-first roles across support ops, technical support, escalation-heavy support, AI-enabled internal tooling, and product-facing operations.",
+      "Open to remote-first roles in support ops, technical support, escalation-heavy support, and AI-enabled operations.",
     links: [
       {
         label: "Email",
