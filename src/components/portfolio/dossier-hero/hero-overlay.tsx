@@ -39,13 +39,13 @@ export function HeroOverlay({
   // Text color transitions
   const textPrimary = useTransform(
     progress,
-    TEXT_TRANSITION.primary.keys,
-    TEXT_TRANSITION.primary.colors
+    [...TEXT_TRANSITION.primary.keys],
+    [...TEXT_TRANSITION.primary.colors]
   );
   const textSecondary = useTransform(
     progress,
-    TEXT_TRANSITION.secondary.keys,
-    TEXT_TRANSITION.secondary.colors
+    [...TEXT_TRANSITION.secondary.keys],
+    [...TEXT_TRANSITION.secondary.colors]
   );
 
   // Left copy transforms
@@ -126,31 +126,31 @@ function LeftCopyContent({
   const transforms = LEFT_COPY_TRANSFORMS;
 
   // Eyebrow transforms
-  const eyebrowY = useTransform(progress, transforms.eyebrow.y.keys, transforms.eyebrow.y.values);
-  const eyebrowScale = useTransform(progress, transforms.eyebrow.scale.keys, transforms.eyebrow.scale.values);
-  const eyebrowOpacity = useTransform(progress, transforms.eyebrow.opacity.keys, transforms.eyebrow.opacity.values);
-  const eyebrowBlur = useTransform(progress, transforms.eyebrow.blur.keys, transforms.eyebrow.blur.values);
+  const eyebrowY = useTransform(progress, [...transforms.eyebrow.y.keys], [...transforms.eyebrow.y.values]);
+  const eyebrowScale = useTransform(progress, [...transforms.eyebrow.scale.keys], [...transforms.eyebrow.scale.values]);
+  const eyebrowOpacity = useTransform(progress, [...transforms.eyebrow.opacity.keys], [...transforms.eyebrow.opacity.values]);
+  const eyebrowBlur = useTransform(progress, [...transforms.eyebrow.blur.keys], [...transforms.eyebrow.blur.values]);
 
   // Title transforms
-  const titleY = useTransform(progress, transforms.title.y.keys, transforms.title.y.values);
-  const titleScale = useTransform(progress, transforms.title.scale.keys, transforms.title.scale.values);
-  const titleOpacity = useTransform(progress, transforms.title.opacity.keys, transforms.title.opacity.values);
-  const titleBlur = useTransform(progress, transforms.title.blur.keys, transforms.title.blur.values);
+  const titleY = useTransform(progress, [...transforms.title.y.keys], [...transforms.title.y.values]);
+  const titleScale = useTransform(progress, [...transforms.title.scale.keys], [...transforms.title.scale.values]);
+  const titleOpacity = useTransform(progress, [...transforms.title.opacity.keys], [...transforms.title.opacity.values]);
+  const titleBlur = useTransform(progress, [...transforms.title.blur.keys], [...transforms.title.blur.values]);
 
   // Description transforms
-  const descY = useTransform(progress, transforms.description.y.keys, transforms.description.y.values);
-  const descScale = useTransform(progress, transforms.description.scale.keys, transforms.description.scale.values);
-  const descOpacity = useTransform(progress, transforms.description.opacity.keys, transforms.description.opacity.values);
-  const descBlur = useTransform(progress, transforms.description.blur.keys, transforms.description.blur.values);
+  const descY = useTransform(progress, [...transforms.description.y.keys], [...transforms.description.y.values]);
+  const descScale = useTransform(progress, [...transforms.description.scale.keys], [...transforms.description.scale.values]);
+  const descOpacity = useTransform(progress, [...transforms.description.opacity.keys], [...transforms.description.opacity.values]);
+  const descBlur = useTransform(progress, [...transforms.description.blur.keys], [...transforms.description.blur.values]);
 
   // CTA transforms
-  const ctaY = useTransform(progress, transforms.cta.y.keys, transforms.cta.y.values);
-  const ctaOpacity = useTransform(progress, transforms.cta.opacity.keys, transforms.cta.opacity.values);
-  const ctaScale = useTransform(progress, transforms.cta.scale.keys, transforms.cta.scale.values);
+  const ctaY = useTransform(progress, [...transforms.cta.y.keys], [...transforms.cta.y.values]);
+  const ctaOpacity = useTransform(progress, [...transforms.cta.opacity.keys], [...transforms.cta.opacity.values]);
+  const ctaScale = useTransform(progress, [...transforms.cta.scale.keys], [...transforms.cta.scale.values]);
 
   // Scroll hint transforms
-  const hintY = useTransform(progress, transforms.scrollHint.y.keys, transforms.scrollHint.y.values);
-  const hintOpacity = useTransform(progress, transforms.scrollHint.opacity.keys, transforms.scrollHint.opacity.values);
+  const hintY = useTransform(progress, [...transforms.scrollHint.y.keys], [...transforms.scrollHint.y.values]);
+  const hintOpacity = useTransform(progress, [...transforms.scrollHint.opacity.keys], [...transforms.scrollHint.opacity.values]);
 
   if (reducedMotion) {
     return (
@@ -278,35 +278,35 @@ function RightRailContent({
   // Progress rail transforms
   const railY = useTransform(
     progress,
-    RIGHT_RAIL_TRANSFORMS.progressRail.y.keys,
-    RIGHT_RAIL_TRANSFORMS.progressRail.y.values
+    [...RIGHT_RAIL_TRANSFORMS.progressRail.y.keys],
+    [...RIGHT_RAIL_TRANSFORMS.progressRail.y.values]
   );
   const railOpacity = useTransform(
     progress,
-    RIGHT_RAIL_TRANSFORMS.progressRail.opacity.keys,
-    RIGHT_RAIL_TRANSFORMS.progressRail.opacity.values
+    [...RIGHT_RAIL_TRANSFORMS.progressRail.opacity.keys],
+    [...RIGHT_RAIL_TRANSFORMS.progressRail.opacity.values]
   );
 
   // Evidence transforms
   const evidenceY = useTransform(
     progress,
-    EVIDENCE_TRANSFORMS.container.y.keys,
-    EVIDENCE_TRANSFORMS.container.y.values
+    [...EVIDENCE_TRANSFORMS.container.y.keys],
+    [...EVIDENCE_TRANSFORMS.container.y.values]
   );
   const evidenceScale = useTransform(
     progress,
-    EVIDENCE_TRANSFORMS.container.scale.keys,
-    EVIDENCE_TRANSFORMS.container.scale.values
+    [...EVIDENCE_TRANSFORMS.container.scale.keys],
+    [...EVIDENCE_TRANSFORMS.container.scale.values]
   );
   const evidenceOpacity = useTransform(
     progress,
-    EVIDENCE_TRANSFORMS.container.opacity.keys,
-    EVIDENCE_TRANSFORMS.container.opacity.values
+    [...EVIDENCE_TRANSFORMS.container.opacity.keys],
+    [...EVIDENCE_TRANSFORMS.container.opacity.values]
   );
   const evidenceBlur = useTransform(
     progress,
-    EVIDENCE_TRANSFORMS.container.blur.keys,
-    EVIDENCE_TRANSFORMS.container.blur.values
+    [...EVIDENCE_TRANSFORMS.container.blur.keys],
+    [...EVIDENCE_TRANSFORMS.container.blur.values]
   );
 
   // Get current stage data
