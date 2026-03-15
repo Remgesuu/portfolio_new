@@ -281,6 +281,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 24%;
   transition: transform var(--transition-slower);
 }
 
@@ -748,6 +749,26 @@
 /* ============================================
    Responsive Breakpoints
    ============================================ */
+
+@media (max-width: 1280px) and (min-width: 901px) {
+  .profileStage {
+    min-height: auto;
+    padding: 1.35rem;
+  }
+
+  .profilePhotoFrame {
+    width: min(100%, 31rem);
+    margin: 1.5rem 1.25rem 0 auto;
+  }
+
+  .profilePanel {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: min(100%, 28rem);
+    margin-top: 1rem;
+  }
+}
 
 /* Intermediate breakpoint for smoother transitions */
 @media (max-width: 1120px) and (min-width: 961px) {
