@@ -219,11 +219,12 @@ export function DossierHero({
   const headlineWords = useMemo(() => hero.title.split(" "), [hero.title]);
 
   return (
-    <section 
+    <div 
       ref={containerRef}
       style={{ 
         position: "relative",
-        height: "500vh"
+        height: "500vh",
+        width: "100%",
       }}
       data-scroll-sequence
     >
@@ -513,7 +514,7 @@ export function DossierHero({
           </div>
         </div>
       </motion.div>
-    </section>
+    </div>
   );
 }
 
