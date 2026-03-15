@@ -6,8 +6,7 @@ import type { ReactNode } from "react";
 export type CTAVariant = "primary" | "secondary" | "ghost" | "outline";
 export type CTASize = "sm" | "md" | "lg";
 
-interface CTAButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface CTAButtonProps {
   children: ReactNode;
   variant?: CTAVariant;
   size?: CTASize;
@@ -18,6 +17,9 @@ interface CTAButtonProps
   isLoading?: boolean;
   icon?: ReactNode;
   rightIcon?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 const variantStyles: Record<CTAVariant, string> = {
@@ -91,7 +93,6 @@ export function CTAButton({
         className={combinedClassName}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         <CTAButtonContent isLoading={isLoading} icon={icon} rightIcon={rightIcon}>
           {children}
@@ -106,7 +107,7 @@ export function CTAButton({
       disabled={disabled || isLoading}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      {...props}
+      onClick={onClick}
     >
       <CTAButtonContent isLoading={isLoading} icon={icon} rightIcon={rightIcon}>
         {children}
