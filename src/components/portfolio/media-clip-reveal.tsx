@@ -28,7 +28,7 @@ interface MediaClipRevealProps {
   className?: string;
 }
 
-const easeOutExpo = [0.16, 1, 0.3, 1];
+const easeOutExpo: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /**
  * MediaClipReveal - Cuberto-style clip-path reveal animation for media
