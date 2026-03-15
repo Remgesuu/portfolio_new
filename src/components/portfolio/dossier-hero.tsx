@@ -12,7 +12,10 @@ const COLORS = {
   midTone: "#9a958d",
   charcoal: "#2a2926",
   nearBlack: "#0a0a0c",
-};
+} as const;
+
+// Initial background for SSR - prevents flash
+const INITIAL_BG = COLORS.studioWhite;
 
 // Stage configuration with labels and thoughts
 const STAGES = [
@@ -66,6 +69,7 @@ export function DossierHero({
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
+  const [isMounted, setIsMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
@@ -74,9 +78,14 @@ export function DossierHero({
 
   const { hero } = siteContent;
 
-  // Scroll progress for the pinned section
+  // Mount check for SSR
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Scroll progress for the pinned section - only after mount
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: isMounted ? containerRef : undefined,
     offset: ["start start", "end end"],
   });
 
@@ -219,19 +228,26 @@ export function DossierHero({
   const headlineWords = useMemo(() => hero.title.split(" "), [hero.title]);
 
   return (
-    <div 
+    <section 
       ref={containerRef}
       style={{ 
         position: "relative",
         height: "500vh",
         width: "100%",
+        zIndex: 10,
+        // Initial background to prevent flash during hydration
+        backgroundColor: INITIAL_BG,
       }}
       data-scroll-sequence
+      aria-label="Introduction"
     >
-      {/* Sticky container with animated background */}
+      {/* Sticky container with animated background - covers entire viewport */}
       <motion.div 
-        className="sticky top-0 h-screen w-full overflow-hidden"
-        style={{ backgroundColor: bgColor }}
+        className="sticky top-0 left-0 h-screen w-screen overflow-hidden"
+        style={{ 
+          backgroundColor: isMounted ? bgColor : INITIAL_BG,
+          zIndex: 10,
+        }}
       >
         {/* Atmospheric vignette - darkens from edges */}
         <motion.div
@@ -514,7 +530,7 @@ export function DossierHero({
           </div>
         </div>
       </motion.div>
-    </div>
+    </section>
   );
 }
 
