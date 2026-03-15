@@ -27,7 +27,7 @@ test.describe("Accessibility", () => {
     });
 
     test("skip link works on all pages", async ({ page }) => {
-      const pages = ["/", "/resume", "/cases/ai-incident-workflow"];
+      const pages = ["/", "/resume", "/cases/darkest-afk"];
       
       for (const pagePath of pages) {
         await page.goto(pagePath);

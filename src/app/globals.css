@@ -410,16 +410,27 @@ button {
 @media print {
   @page {
     margin: 14mm;
+    size: A4;
+  }
+
+  @page :first {
+    margin-top: 10mm;
+  }
+
+  html {
+    font-size: 11pt;
   }
 
   body {
     background: #fff !important;
     color: #16171a !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   body::before,
   body::after {
-    display: none;
+    display: none !important;
   }
 
   /* Force light theme colors for print */
@@ -429,5 +440,51 @@ button {
     --text-disabled: #656966 !important;
     --border-default: rgba(22, 23, 26, 0.1) !important;
     --bg-surface: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* Page break controls */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  p, li, blockquote {
+    orphans: 3;
+    widows: 3;
+  }
+
+  img, svg, figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  article, section {
+    break-inside: avoid-page;
+  }
+
+  /* Hide non-essential interactive elements */
+  button:not([type="submit"]),
+  [role="radiogroup"],
+  nav[aria-label="Primary"],
+  .skip-link {
+    display: none !important;
+  }
+
+  /* Links show URL for print */
+  a[href^="http"]:not([href*="mailto"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #656966;
+    word-break: break-all;
+  }
+
+  a[href^="mailto"]::after {
+    content: none;
+  }
+
+  /* Ensure images print properly */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
   }
 }

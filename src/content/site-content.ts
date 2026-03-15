@@ -606,10 +606,10 @@ export const siteContent: SiteContent = {
     resumeUrl: "/resume",
   },
   profileMedia: {
-    src: "/images/profile/grigorii-portrait.png",
+    src: "/images/profile/grigorii-portrait.jpg",
     alt: "Portrait of Grigorii against a warm city skyline at sunset.",
-    width: 1792,
-    height: 2400,
+    width: 1024,
+    height: 1024,
   },
   description:
     "English-first portfolio and resume for an AI-enabled support systems operator working across technical support, escalation, workflow automation, and product-facing signal packaging.",
