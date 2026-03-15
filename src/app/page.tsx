@@ -29,17 +29,14 @@ export default function Home() {
 
   return (
     <main id="main-content" tabIndex={-1} className={styles.page}>
-      {/* Minimal topbar reference */}
+      {/* Minimal floating nav pill - kons.fyi style */}
       <Reveal variant="fade" duration={0.6}>
         <header className={styles.topbar}>
-          <div className={styles.brandBlock}>
-            <Link className={styles.brand} href="/">
-              <span className={styles.brandName}>{meta.name}</span>
-            </Link>
-            <span className={styles.brandRole}>{meta.role}</span>
-          </div>
+          <Link className={styles.homeButton} href="/" aria-label="Home">
+            <span className={styles.homeIcon}>G</span>
+          </Link>
 
-          <nav className={styles.nav} aria-label="Primary">
+          <nav className={styles.navPill} aria-label="Primary">
             {nav.map((item) =>
               isInternalRouteHref(item.href) ? (
                 <Link key={item.href} className={styles.navLink} href={item.href}>
