@@ -1,7 +1,26 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
-import type { PropsWithChildren } from "react";
+import { motion, type Variants } from "motion/react";
+import { type PropsWithChildren, useEffect, useState } from "react";
+
+// Custom hook that checks reduced motion without console warnings
+function useReducedMotionSilent(): boolean {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mediaQuery.matches);
+
+    const handler = (event: MediaQueryListEvent) => {
+      setReducedMotion(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  return reducedMotion;
+}
 
 export type RevealVariant =
   | "fade-up"
@@ -164,7 +183,7 @@ export function Reveal({
   variant = "fade-up",
   staggerChildren = 0.08,
 }: RevealProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSilent();
 
   if (reduceMotion) {
     return (

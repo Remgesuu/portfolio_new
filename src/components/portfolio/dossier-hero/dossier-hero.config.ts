@@ -4,12 +4,13 @@
  */
 
 // Stage definitions with scroll ranges
+// Recalibrated for smoother progression and better alignment with book keyframes
 export const STAGES = [
-  { id: "intro",     range: [0.00, 0.05] as const, label: null,        thought: null },
-  { id: "intake",    range: [0.05, 0.30] as const, label: "INTAKE",    thought: "Every ticket tells a story" },
-  { id: "diagnosis", range: [0.30, 0.55] as const, label: "DIAGNOSIS", thought: "Patterns emerge from noise" },
-  { id: "action",    range: [0.55, 0.80] as const, label: "ACTION",    thought: "Systems replace repetition" },
-  { id: "resolved",  range: [0.80, 1.00] as const, label: "RESOLVED",  thought: "Clarity, documented" },
+  { id: "intro",     range: [0.00, 0.08] as const, label: null,        thought: null },
+  { id: "intake",    range: [0.08, 0.32] as const, label: "INTAKE",    thought: "Every ticket tells a story" },
+  { id: "diagnosis", range: [0.32, 0.56] as const, label: "DIAGNOSIS", thought: "Patterns emerge from noise" },
+  { id: "action",    range: [0.56, 0.78] as const, label: "ACTION",    thought: "Systems replace repetition" },
+  { id: "resolved",  range: [0.78, 1.00] as const, label: "RESOLVED",  thought: "Clarity, documented" },
 ] as const;
 
 export type DossierStageId = typeof STAGES[number]["id"];
@@ -63,7 +64,8 @@ export const TEXT_TRANSITION = {
 } as const;
 
 // Scroll track height (multiplier of viewport)
-export const SCROLL_HEIGHT_VH = 500;
+// Increased from 500 to 600 for more scroll room - prevents "driving past" content
+export const SCROLL_HEIGHT_VH = 600;
 
 // Pin height
 export const PIN_HEIGHT_VH = 100;
@@ -79,6 +81,15 @@ export const TOPBAR_TIMELINE = {
 
 // Book sequence configuration
 export const BOOK_CONFIG = {
+  // Frame sequence settings (preferred for smooth scrubbing)
+  frameSequence: {
+    totalFrames: 160,
+    basePath: "/scroll-sequences/dossier/frames/frame-",
+    extension: ".webp",
+    fallbackExtension: ".jpg",
+    batchSize: 20, // Load frames in batches to avoid overwhelming browser
+  },
+  // Fallback video for mobile/reduced-motion
   videoSrc: "/scroll-sequences/dossier/book-sequence.mp4",
   posterSrc: "/scroll-sequences/dossier/poster.jpg",
   // Transform ranges

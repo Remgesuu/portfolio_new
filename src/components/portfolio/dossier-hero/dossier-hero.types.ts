@@ -108,6 +108,8 @@ export interface LayerTransforms {
 export interface UseDossierProgressReturn {
   progress: MotionValue<number>;
   progressValue: number;
+  smoothedProgress: MotionValue<number>;
+  smoothedProgressValue: number;
   velocity: MotionValue<number>;
   velocityValue: number;
   stage: DossierStage;
