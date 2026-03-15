@@ -141,13 +141,6 @@ export function CustomCursorProvider({ children }: CustomCursorProps) {
 
   return (
     <CursorContext.Provider value={{ setCursorState, setCursorText }}>
-      {/* Hide default cursor globally */}
-      <style jsx global>{`
-        * {
-          cursor: none !important;
-        }
-      `}</style>
-
       {children}
 
       {/* Main cursor dot */}

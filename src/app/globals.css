@@ -262,6 +262,17 @@ body::after {
 }
 
 /* ============================================
+   Custom Cursor (Desktop Only)
+   ============================================ */
+@media (pointer: fine) {
+  html:not([data-reduced-motion="true"]) *,
+  html:not([data-reduced-motion="true"]) *::before,
+  html:not([data-reduced-motion="true"]) *::after {
+    cursor: none !important;
+  }
+}
+
+/* ============================================
    Reset & Base Elements
    ============================================ */
 * {
