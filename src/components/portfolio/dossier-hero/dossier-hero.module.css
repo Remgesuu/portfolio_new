@@ -5,6 +5,8 @@
   height: 500vh; /* 5x viewport for scroll range */
   width: 100%;
   z-index: 10;
+  /* Initial background to prevent flash */
+  background-color: #f8f6f3;
 }
 
 .stickyWindow {
@@ -12,9 +14,12 @@
   top: 0;
   left: 0;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
   isolation: isolate; /* Creates stacking context */
+  /* Ensure it takes full width even in constrained parents */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 }
 
 /* Layer structure - all absolute positioned */
@@ -33,9 +38,12 @@
 /* Book layer - centered video/canvas */
 .bookLayer {
   z-index: 1;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
+  /* Ensure book stays centered */
+  padding: 0 2rem;
 }
 
 /* Overlay layer - text and CTA */

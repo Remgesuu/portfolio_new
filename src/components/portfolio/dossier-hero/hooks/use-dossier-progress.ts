@@ -8,6 +8,8 @@ import type { DossierStage, UseDossierProgressReturn } from "../dossier-hero.typ
 /**
  * Custom hook for tracking scroll progress within the dossier hero section.
  * Centralizes all scroll logic - child components should NOT access window.scrollY.
+ * 
+ * Works with both native scroll and Lenis smooth scroll.
  */
 export function useDossierProgress(
   containerRef: React.RefObject<HTMLElement | null>
@@ -20,43 +22,50 @@ export function useDossierProgress(
   const rafRef = useRef<number>(0);
 
   // Calculate progress based on container position
+  // Uses getBoundingClientRect which works with both native and Lenis scroll
   const updateProgress = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    // Get container bounds relative to viewport
     const rect = container.getBoundingClientRect();
-    const containerTop = window.scrollY + rect.top;
-    const containerHeight = container.offsetHeight - window.innerHeight;
+    
+    // Container total scroll range = container height - viewport height
+    const containerHeight = container.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    const scrollRange = containerHeight - viewportHeight;
 
-    if (containerHeight <= 0) return;
+    if (scrollRange <= 0) return;
 
-    const scrolled = window.scrollY - containerTop;
-    const newProgress = Math.max(0, Math.min(1, scrolled / containerHeight));
+    // Progress = how much of the container has scrolled past the top of viewport
+    // rect.top = 0 means container top is at viewport top (start)
+    // rect.top = -scrollRange means container bottom is at viewport bottom (end)
+    const scrolled = -rect.top;
+    const newProgress = Math.max(0, Math.min(1, scrolled / scrollRange));
     
     progress.set(newProgress);
     setProgressValue(newProgress);
   }, [containerRef, progress]);
 
-  // Scroll listener with RAF throttling
+  // Use RAF loop for continuous updates (works with Lenis)
   useEffect(() => {
-    const handleScroll = () => {
-      if (rafRef.current) return;
-      
-      rafRef.current = requestAnimationFrame(() => {
-        updateProgress();
-        rafRef.current = 0;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
+    let running = true;
     
-    // Initial calculation
-    updateProgress();
+    const tick = () => {
+      if (!running) return;
+      updateProgress();
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    
+    // Start the loop
+    rafRef.current = requestAnimationFrame(tick);
+    
+    // Also listen to resize
+    window.addEventListener("resize", updateProgress, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      running = false;
+      window.removeEventListener("resize", updateProgress);
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }

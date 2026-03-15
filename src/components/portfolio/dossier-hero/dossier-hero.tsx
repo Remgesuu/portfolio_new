@@ -102,7 +102,11 @@ export function DossierHero({
     <section
       ref={containerRef}
       className={styles.scrollTrack}
-      style={{ height: `${SCROLL_HEIGHT_VH}vh` }}
+      style={{ 
+        height: `${SCROLL_HEIGHT_VH}vh`,
+        // Initial background to prevent flash during hydration
+        backgroundColor: COLORS.studioWhite,
+      }}
       data-scroll-sequence
       aria-label="Introduction"
       {...bind}
