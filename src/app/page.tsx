@@ -107,6 +107,12 @@ export default function Home() {
               )}
             </div>
           </Reveal>
+
+          <Reveal variant="fade-up" delay={0.55} duration={0.6}>
+            <a className={styles.heroEmail} href={`mailto:${meta.email}`}>
+              {meta.email}
+            </a>
+          </Reveal>
         </div>
 
         <Reveal className={styles.heroVisual} variant="scale-in" delay={0.25} duration={1}>
