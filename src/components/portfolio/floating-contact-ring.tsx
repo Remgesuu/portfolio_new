@@ -74,19 +74,14 @@ export function FloatingContactRing({
             aria-label="Open contact options"
             aria-expanded={isExpanded}
           >
-            {/* Rotating text ring */}
-            <motion.div
-              className="absolute inset-0"
-              animate={reduceMotion ? {} : { rotate: 360 }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
+            {/* Static text ring - no rotation for performance */}
+            <div className="absolute inset-0">
               <svg
                 viewBox="0 0 100 100"
                 className="h-full w-full"
+                style={{ 
+                  animation: reduceMotion ? "none" : "spin 30s linear infinite",
+                }}
               >
                 <defs>
                   <path
@@ -95,7 +90,6 @@ export function FloatingContactRing({
                   />
                 </defs>
                 <text
-                  className="fill-current"
                   style={{
                     fontSize: "10px",
                     fontFamily: "var(--font-mono)",
@@ -109,7 +103,7 @@ export function FloatingContactRing({
                   </textPath>
                 </text>
               </svg>
-            </motion.div>
+            </div>
 
             {/* Inner avatar circle */}
             <div

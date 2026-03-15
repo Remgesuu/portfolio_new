@@ -199,6 +199,9 @@ export function CTAStage({
   id?: string;
   className?: string;
 }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
   return (
     <InverseSection
       id={id}
@@ -207,40 +210,29 @@ export function CTAStage({
       cornerRadius="2xl"
       padding="xl"
       className={`text-center ${className}`}
+      animate={false}
     >
-      <div className="mx-auto max-w-3xl">
+      <motion.div 
+        ref={ref}
+        className="mx-auto max-w-3xl"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
         {subheading && (
-          <motion.p
-            className="mb-4 font-mono text-sm uppercase tracking-widest text-white/60"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
+          <p className="mb-4 font-mono text-sm uppercase tracking-widest text-white/60">
             {subheading}
-          </motion.p>
+          </p>
         )}
 
-        <motion.h2
-          className="mb-8 text-4xl font-medium leading-tight md:text-6xl lg:text-7xl"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <h2 className="mb-8 text-4xl font-medium leading-tight md:text-6xl lg:text-7xl">
           {heading}
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
+        <div className="flex flex-wrap items-center justify-center gap-4">
           {children}
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </InverseSection>
   );
 }

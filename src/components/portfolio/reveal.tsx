@@ -80,18 +80,19 @@ function getVariants(
       };
 
     case "blur-to-crisp":
+      // Simplified version without filter blur for performance
       return {
         hidden: {
           opacity: 0,
-          filter: "blur(12px)",
-          y: distance * 0.4,
+          y: distance * 0.5,
+          scale: 0.98,
         },
         visible: {
           opacity: 1,
-          filter: "blur(0px)",
           y: 0,
+          scale: 1,
           transition: {
-            duration: duration * 1.2,
+            duration: duration * 1.1,
             ease: easeOutExpo,
           },
         },

@@ -6,7 +6,6 @@ import { Reveal } from "@/components/portfolio/reveal";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 import { CTAButton } from "@/components/portfolio/cta-button";
 import { FloatingContactRing } from "@/components/portfolio/floating-contact-ring";
-import { TextSplitReveal } from "@/components/portfolio/text-split-reveal";
 import { CTAStage } from "@/components/portfolio/inverse-section";
 import { OutlineCTAButton } from "@/components/portfolio/outline-cta-button";
 import { ChoreographyContainer, ChoreographyItem } from "@/components/portfolio/motion-choreography";
@@ -72,17 +71,9 @@ export default function Home() {
             <p className={styles.heroPositioning}>{hero.positioning}</p>
           </Reveal>
 
-          <TextSplitReveal 
-            as="h1" 
-            className={styles.heroTitle}
-            splitBy="words"
-            delay={0.2}
-            staggerDelay={0.05}
-            duration={0.9}
-            blur
-          >
-            {hero.title}
-          </TextSplitReveal>
+          <Reveal variant="fade-up" delay={0.2} duration={0.9}>
+            <h1 className={styles.heroTitle}>{hero.title}</h1>
+          </Reveal>
 
           <Reveal variant="fade-up" delay={0.35} duration={0.8}>
             <p className={styles.heroDescription}>{hero.description}</p>

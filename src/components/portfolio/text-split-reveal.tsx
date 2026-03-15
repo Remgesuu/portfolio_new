@@ -101,17 +101,15 @@ export function TextSplitReveal({
     },
   };
 
-  // Item variants with optional blur
+  // Item variants - simplified, no blur filter for performance
   const itemVariants: Variants = {
     hidden: {
       opacity: 0,
       y: distance,
-      filter: blur ? "blur(8px)" : "blur(0px)",
     },
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         duration,
         ease,
@@ -142,11 +140,7 @@ export function TextSplitReveal({
           <motion.span
             key={el.key}
             variants={itemVariants}
-            className={splitBy === "words" ? "mr-[0.25em]" : ""}
-            style={{
-              display: "inline-block",
-              willChange: "transform, opacity, filter",
-            }}
+            className={splitBy === "words" ? "mr-[0.25em] inline-block" : "inline-block"}
           >
             {el.text}
           </motion.span>
