@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionTemplate, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValue, useMotionTemplate, type MotionValue } from "motion/react";
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
 // Type for scroll context that handles SSR
@@ -60,10 +60,12 @@ export function Parallax({
   className?: string;
 }) {
   const scroll = useSmoothScroll();
-  const scrollYProgress = scroll?.scrollYProgress;
+  // Create a real MotionValue as fallback - hooks must be called unconditionally
+  const fallbackProgress = useMotionValue(0);
+  const scrollYProgress = scroll?.scrollYProgress ?? fallbackProgress;
   
-  const y = useTransform(scrollYProgress ?? { get: () => 0, set: () => {} } as MotionValue<number>, [0, 1], offset);
-  const scaleVal = useTransform(scrollYProgress ?? { get: () => 0, set: () => {} } as MotionValue<number>, [0, 1], scale);
+  const y = useTransform(scrollYProgress, [0, 1], offset);
+  const scaleVal = useTransform(scrollYProgress, [0, 1], scale);
 
   // Return static version during SSR
   if (!scroll) {
@@ -89,14 +91,12 @@ export function ScrollReveal({
   className?: string;
 }) {
   const scroll = useSmoothScroll();
-  const scrollYProgress = scroll?.scrollYProgress;
+  // Create a real MotionValue as fallback
+  const fallbackProgress = useMotionValue(0);
+  const scrollYProgress = scroll?.scrollYProgress ?? fallbackProgress;
   
   // Map scroll to opacity for smooth fade-in as user scrolls
-  const opacity = useTransform(
-    scrollYProgress ?? { get: () => 0, set: () => {} } as MotionValue<number>, 
-    [0, 0.15], 
-    [0.3, 1]
-  );
+  const opacity = useTransform(scrollYProgress, [0, 0.15], [0.3, 1]);
 
   // Return static version during SSR
   if (!scroll) {
@@ -122,11 +122,13 @@ export function ScrollProgress({
   style?: React.CSSProperties;
 }) {
   const scroll = useSmoothScroll();
-  const scrollYProgress = scroll?.scrollYProgress;
+  // Create real MotionValues as fallback
+  const fallbackProgress = useMotionValue(0);
+  const scrollYProgress = scroll?.scrollYProgress ?? fallbackProgress;
   
-  const fallbackValue = { get: () => 0, set: () => {} } as MotionValue<number>;
-  const scaleX = useTransform(scrollYProgress ?? fallbackValue, [0, 1], [0, 1]);
-  const origin = useMotionTemplate`${useTransform(scrollYProgress ?? fallbackValue, [0, 1], [0, 100])}%`;
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const originPercent = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const origin = useMotionTemplate`${originPercent}%`;
 
   // Return nothing during SSR
   if (!scroll) {
