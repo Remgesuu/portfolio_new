@@ -5,8 +5,12 @@ import { useState, type ReactNode } from "react";
 
 interface OutlineCTAButtonProps {
   children: ReactNode;
+  /** Render as anchor or button */
+  as?: "a" | "button";
   href?: string;
   onClick?: () => void;
+  /** Style variant */
+  variant?: "default" | "ghost";
   /** Size variant */
   size?: "sm" | "md" | "lg" | "xl";
   /** Enable ripple effect on click */
@@ -42,8 +46,10 @@ const sizeStyles = {
  */
 export function OutlineCTAButton({
   children,
+  as,
   href,
   onClick,
+  variant = "default",
   size = "lg",
   ripple = true,
   icon,
@@ -75,9 +81,13 @@ export function OutlineCTAButton({
     onClick?.();
   };
 
+  const variantStyles = variant === "ghost" 
+    ? "border-white/30 hover:border-white/60" 
+    : "border-white";
+
   const baseClassName = `
     group relative inline-flex items-center justify-center gap-2
-    rounded-full border-2 border-text-primary
+    rounded-full border-2 ${variantStyles}
     font-medium tracking-wide
     overflow-hidden
     transition-colors duration-300
@@ -90,7 +100,7 @@ export function OutlineCTAButton({
     <>
       {/* Background fill on hover */}
       <motion.span
-        className="absolute inset-0 bg-text-primary origin-left"
+        className="absolute inset-0 bg-white origin-left"
         initial={{ scaleX: 0 }}
         whileHover={{ scaleX: 1 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -119,7 +129,7 @@ export function OutlineCTAButton({
       </AnimatePresence>
 
       {/* Content layer */}
-      <span className="relative z-10 flex items-center gap-2 text-text-primary group-hover:text-text-inverse transition-colors duration-300">
+      <span className="relative z-10 flex items-center gap-2 text-white group-hover:text-black transition-colors duration-300">
         {icon && <span className="flex-shrink-0">{icon}</span>}
         <span>{children}</span>
         {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}

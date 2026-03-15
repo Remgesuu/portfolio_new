@@ -113,7 +113,11 @@ export function FloatingContactRing({
 
             {/* Inner avatar circle */}
             <div
-              className="relative z-10 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border-default bg-bg-surface shadow-md md:h-12 md:w-12"
+              className="relative z-10 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border shadow-md md:h-12 md:w-12"
+              style={{
+                borderColor: "var(--border-default)",
+                backgroundColor: "var(--bg-surface)",
+              }}
             >
               {avatarSrc ? (
                 <Image
@@ -124,7 +128,10 @@ export function FloatingContactRing({
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <span className="text-lg font-semibold text-text-primary">
+                <span 
+                  className="text-lg font-semibold"
+                  style={{ color: "var(--text-primary)" }}
+                >
                   {email.charAt(0).toUpperCase()}
                 </span>
               )}
@@ -135,7 +142,11 @@ export function FloatingContactRing({
           <AnimatePresence>
             {isExpanded && (
               <motion.div
-                className="absolute bottom-full right-0 mb-3 min-w-56 overflow-hidden rounded-xl border border-border-default bg-bg-glass-strong p-4 shadow-lg backdrop-blur-xl"
+                className="absolute bottom-full right-0 mb-3 min-w-56 overflow-hidden rounded-xl border p-4 shadow-lg backdrop-blur-xl"
+                style={{
+                  borderColor: "var(--border-default)",
+                  backgroundColor: "var(--bg-glass-strong)",
+                }}
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -145,14 +156,21 @@ export function FloatingContactRing({
                   damping: 25 
                 }}
               >
-                <p className="mb-3 font-mono text-xs uppercase tracking-widest text-text-disabled">
+                <p 
+                  className="mb-3 font-mono text-xs uppercase tracking-widest"
+                  style={{ color: "var(--text-disabled)" }}
+                >
                   Get in touch
                 </p>
 
                 <div className="space-y-2">
                   <a
                     href={`mailto:${email}`}
-                    className="block rounded-lg bg-bg-surface px-3 py-2 font-mono text-sm text-accent-primary transition-colors hover:bg-accent-primary-subtle"
+                    className="block rounded-lg px-3 py-2 font-mono text-sm transition-colors"
+                    style={{
+                      backgroundColor: "var(--bg-surface)",
+                      color: "var(--accent-primary)",
+                    }}
                   >
                     {email}
                   </a>
@@ -160,14 +178,24 @@ export function FloatingContactRing({
                   {phone && (
                     <a
                       href={`tel:${phone.replace(/\D/g, "")}`}
-                      className="block rounded-lg bg-bg-surface px-3 py-2 font-mono text-sm text-accent-primary transition-colors hover:bg-accent-primary-subtle"
+                      className="block rounded-lg px-3 py-2 font-mono text-sm transition-colors"
+                      style={{
+                        backgroundColor: "var(--bg-surface)",
+                        color: "var(--accent-primary)",
+                      }}
                     >
                       {phone}
                     </a>
                   )}
                 </div>
 
-                <p className="mt-3 border-t border-border-subtle pt-3 text-xs text-text-disabled">
+                <p 
+                  className="mt-3 border-t pt-3 text-xs"
+                  style={{
+                    borderColor: "var(--border-subtle)",
+                    color: "var(--text-disabled)",
+                  }}
+                >
                   Available for remote work
                 </p>
               </motion.div>

@@ -131,21 +131,38 @@ export function CursorFollower({
     };
   }, [mouseX, mouseY, isTouchDevice]);
 
+  // Add/remove cursor-none class on body
+  useEffect(() => {
+    if (isTouchDevice) return;
+    
+    // Check for hover capability
+    const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!hasHover) return;
+
+    document.body.style.cursor = "none";
+    
+    // Add cursor-none to all interactive elements
+    const style = document.createElement("style");
+    style.id = "cursor-follower-styles";
+    style.textContent = `
+      @media (hover: hover) and (pointer: fine) {
+        *, *::before, *::after { cursor: none !important; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.body.style.cursor = "";
+      const existingStyle = document.getElementById("cursor-follower-styles");
+      if (existingStyle) existingStyle.remove();
+    };
+  }, [isTouchDevice]);
+
   // Don't render on touch devices
   if (isTouchDevice) return null;
 
   return (
-    <>
-      {/* Hide default cursor globally */}
-      <style jsx global>{`
-        @media (hover: hover) and (pointer: fine) {
-          * {
-            cursor: none !important;
-          }
-        }
-      `}</style>
-
-      <AnimatePresence>
+    <AnimatePresence>
         {isVisible && (
           <motion.div
             className="pointer-events-none fixed left-0 top-0 z-[9999] mix-blend-difference"
@@ -199,6 +216,5 @@ export function CursorFollower({
           </motion.div>
         )}
       </AnimatePresence>
-    </>
   );
 }

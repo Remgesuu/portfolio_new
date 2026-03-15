@@ -131,7 +131,8 @@ export function TextSplitReveal({
   return (
     <Tag ref={ref} className={className}>
       <motion.span
-        className="inline-flex flex-wrap"
+        className="inline"
+        style={{ display: "inline" }}
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
