@@ -22,14 +22,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     setIsMounted(true);
   }, []);
 
-  // During SSR and initial client render, just render children without context
-  // This prevents hydration mismatch from useScroll accessing window
-  if (!isMounted) {
-    return <>{children}</>;
-  }
-
+  // Always render the Provider to maintain consistent tree structure
+  // Only provide scroll value after mounting to avoid SSR/client mismatch
   return (
-    <SmoothScrollContext.Provider value={scroll}>
+    <SmoothScrollContext.Provider value={isMounted ? scroll : null}>
       {children}
     </SmoothScrollContext.Provider>
   );
