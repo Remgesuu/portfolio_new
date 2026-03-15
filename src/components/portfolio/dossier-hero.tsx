@@ -155,8 +155,10 @@ export function DossierHero({
   return (
     <section 
       ref={containerRef}
-      className="relative"
-      style={{ height: "500vh" }} // 5x viewport for smooth scrub
+      style={{ 
+        position: "relative",
+        height: "500vh" // 5x viewport for smooth scrub
+      }}
       data-scroll-sequence
       data-scroll-mode={isInteractive ? "interactive" : "poster"}
     >
