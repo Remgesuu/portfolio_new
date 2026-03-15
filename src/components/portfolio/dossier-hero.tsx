@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState, useMemo } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react";
+import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from "motion/react";
 import { CTAButton } from "./cta-button";
 import { siteContent } from "@/content/site-content";
 
@@ -77,13 +77,34 @@ export function DossierHero({
 
   const { hero } = siteContent;
 
-  // Scroll progress for the pinned section
-  // Using container option to track scroll within the section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-    layoutEffect: false, // Prevents SSR mismatch
-  });
+  // Manual scroll progress tracking - avoids Framer Motion's position warning
+  const scrollYProgress = useMotionValue(0);
+  
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      
+      const rect = container.getBoundingClientRect();
+      const containerTop = window.scrollY + rect.top;
+      const containerHeight = container.offsetHeight - window.innerHeight;
+      
+      if (containerHeight <= 0) return;
+      
+      const scrolled = window.scrollY - containerTop;
+      const progress = Math.max(0, Math.min(1, scrolled / containerHeight));
+      scrollYProgress.set(progress);
+    };
+    
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress, { passive: true });
+    updateScrollProgress(); // Initial calculation
+    
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
+  }, [scrollYProgress]);
 
   // Smooth spring for video scrubbing
   const smoothProgress = useSpring(scrollYProgress, {
