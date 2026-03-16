@@ -5,6 +5,7 @@ import { motion, useTransform, useMotionValueEvent } from "motion/react";
 import { DioramaScene } from "../diorama-scene";
 import { BookSequenceCanvas } from "./book-sequence-canvas";
 import { HeroOverlay } from "./hero-overlay";
+import { EditorialCallouts } from "./editorial-callouts";
 import { useDossierProgress } from "./hooks/use-dossier-progress";
 import { usePointerParallax } from "./hooks/use-pointer-parallax";
 import { COLORS, BG_TRANSITION, SCROLL_HEIGHT_VH } from "./dossier-hero.config";
@@ -135,6 +136,13 @@ export function DossierHero({
             progress={progressValue}
             stage={stage}
             isInteractive={isInteractive}
+          />
+          
+          {/* Editorial callouts - atmospheric text around the book */}
+          <EditorialCallouts
+            progress={progressValue}
+            isDesktop={isDesktop}
+            reducedMotion={reducedMotion}
           />
         </div>
 

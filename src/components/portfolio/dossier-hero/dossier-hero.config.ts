@@ -161,6 +161,50 @@ export const EVIDENCE_TRANSFORMS = {
   itemStagger: 0.03,
 } as const;
 
+// Editorial callouts - atmospheric text around the book
+// These are cinematic, not dashboard-like. They support the narrative.
+export const EDITORIAL_CALLOUTS = [
+  {
+    id: "signal",
+    text: "Signal becomes structure",
+    position: "left" as const,
+    // When this callout is visible (progress range)
+    range: [0.15, 0.35] as const,
+    // Offset from book center (percentage of container)
+    offset: { x: -38, y: -5 },
+  },
+  {
+    id: "pattern",
+    text: "Repetition turns into system",
+    position: "right" as const,
+    range: [0.38, 0.58] as const,
+    offset: { x: 36, y: 8 },
+  },
+  {
+    id: "evidence",
+    text: "Evidence, organized",
+    position: "left" as const,
+    range: [0.60, 0.78] as const,
+    offset: { x: -35, y: 12 },
+  },
+  {
+    id: "resolution",
+    text: "Resolution, documented",
+    position: "right" as const,
+    range: [0.82, 0.98] as const,
+    offset: { x: 32, y: -8 },
+  },
+] as const;
+
+// Callout transform config
+export const CALLOUT_TRANSFORMS = {
+  enter: {
+    opacity: { keys: [0, 0.15, 0.85, 1], values: [0, 1, 1, 0] },
+    y: { keys: [0, 0.15, 0.85, 1], values: [12, 0, 0, -8] },
+    blur: { keys: [0, 0.15, 0.85, 1], values: [4, 0, 0, 4] },
+  },
+} as const;
+
 // Breakpoint adjustments
 export const BREAKPOINTS = {
   desktop: 1280,
