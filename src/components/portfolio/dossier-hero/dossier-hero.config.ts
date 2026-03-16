@@ -81,12 +81,14 @@ export const TOPBAR_TIMELINE = {
 export const BOOK_CONFIG = {
   videoSrc: "/scroll-sequences/dossier/book-sequence.mp4",
   posterSrc: "/scroll-sequences/dossier/poster.jpg",
-  // Transform ranges
+  // Transform ranges - subtle, premium movements
   transforms: {
-    // Start slightly down and small, settle to center
-    y: { keys: [0, 0.05, 0.30, 0.80, 1.0], values: [40, 0, 0, 0, 0] },
-    scale: { keys: [0, 0.05, 0.30, 0.55, 0.80, 1.0], values: [0.92, 1, 1, 1.03, 1, 0.98] },
-    opacity: { keys: [0, 0.03], values: [0.7, 1] },
+    // Very subtle Y movement - book stays centered, just gentle drift
+    y: { keys: [0, 0.05, 0.50, 0.80, 1.0], values: [16, 0, -4, 0, 8] },
+    // Minimal scale breathing - book should feel solid, not bouncy
+    scale: { keys: [0, 0.05, 0.50, 0.80, 1.0], values: [0.97, 1, 1.01, 1, 0.99] },
+    // Quick fade in
+    opacity: { keys: [0, 0.02], values: [0.85, 1] },
   },
 } as const;
 
@@ -196,12 +198,12 @@ export const EDITORIAL_CALLOUTS = [
   },
 ] as const;
 
-// Callout transform config
+// Callout transform config - very gentle, almost whispered
 export const CALLOUT_TRANSFORMS = {
   enter: {
-    opacity: { keys: [0, 0.15, 0.85, 1], values: [0, 1, 1, 0] },
-    y: { keys: [0, 0.15, 0.85, 1], values: [12, 0, 0, -8] },
-    blur: { keys: [0, 0.15, 0.85, 1], values: [4, 0, 0, 4] },
+    opacity: { keys: [0, 0.20, 0.80, 1], values: [0, 1, 1, 0] },
+    y: { keys: [0, 0.20, 0.80, 1], values: [6, 0, 0, -4] },
+    blur: { keys: [0, 0.20, 0.80, 1], values: [2, 0, 0, 2] },
   },
 } as const;
 

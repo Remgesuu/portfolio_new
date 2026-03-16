@@ -115,17 +115,16 @@ const CalloutItem = memo(function CalloutItem({
 
   return (
     <motion.p
-      className="text-sm font-light tracking-wide max-w-[180px]"
+      className="text-xs font-light tracking-widest max-w-[160px]"
       style={{
         ...positionStyles,
-        opacity,
+        opacity: opacity * 0.65, // More subtle
         filter: `blur(${blur}px)`,
         color: COLORS.midTone,
         textAlign: position === "left" ? "right" : "left",
-        lineHeight: 1.5,
-        // Subtle text styling
-        letterSpacing: "0.04em",
-        fontStyle: "italic",
+        lineHeight: 1.6,
+        letterSpacing: "0.08em",
+        textTransform: "lowercase",
       }}
     >
       {text}
